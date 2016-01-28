@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `ork_account` (
   KEY `parent_id` (`parent_id`),
   KEY `park_id` (`park_id`),
   KEY `unit_id` (`unit_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10003 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10003 ;
 
 -- --------------------------------------------------------
 
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `ork_application` (
   `app_salt` varchar(35) NOT NULL,
   `appid_expires` datetime NOT NULL,
   PRIMARY KEY (`application_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `ork_application_auth` (
   PRIMARY KEY (`application_auth_id`),
   UNIQUE KEY `application_id` (`application_id`,`mundane_id`),
   UNIQUE KEY `appauthkey` (`appauthkey`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `ork_attendance` (
   KEY `kingdom_id` (`kingdom_id`),
   KEY `mundane_id_2` (`mundane_id`),
   KEY `park_id` (`park_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1222742 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1222742 ;
 
 -- --------------------------------------------------------
 
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `ork_authorization` (
   KEY `park_id` (`park_id`),
   KEY `role` (`role`),
   KEY `unit_id` (`unit_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2358 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2358 ;
 
 -- --------------------------------------------------------
 
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `ork_award` (
   KEY `name` (`name`),
   KEY `peerage` (`peerage`),
   KEY `title_class` (`title_class`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=203 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=203 ;
 
 -- --------------------------------------------------------
 
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `ork_awards` (
   KEY `park_id` (`park_id`),
   KEY `team_id` (`team_id`),
   KEY `unit_id` (`unit_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=115100 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=115100 ;
 
 -- --------------------------------------------------------
 
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `ork_bracket` (
   `participants` enum('individual','team') NOT NULL,
   `seeding` enum('manual','glicko2','random','glicko2-manual','random-manual') NOT NULL,
   PRIMARY KEY (`bracket_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `ork_bracket_officiant` (
   `mundane_id` int(11) NOT NULL,
   `ring` varchar(50) NOT NULL,
   PRIMARY KEY (`bracket_officiant_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `ork_class` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`class_id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 -- --------------------------------------------------------
 
@@ -262,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `ork_class_reconciliation` (
   PRIMARY KEY (`class_reconciliation_id`),
   UNIQUE KEY `class_id` (`class_id`,`mundane_id`),
   KEY `mundane_id` (`mundane_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=71189 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=71189 ;
 
 -- --------------------------------------------------------
 
@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `ork_configuration` (
   UNIQUE KEY `type` (`type`,`id`,`key`),
   KEY `id` (`id`),
   KEY `type_2` (`type`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=923 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=923 ;
 
 -- --------------------------------------------------------
 
@@ -301,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `ork_credential` (
   PRIMARY KEY (`key`),
   KEY `expiration` (`expiration`),
   KEY `resetrequest` (`resetrequest`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -324,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `ork_event` (
   KEY `mundane_id` (`mundane_id`),
   KEY `park_id` (`park_id`),
   KEY `unit_id` (`unit_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8735 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8735 ;
 
 -- --------------------------------------------------------
 
@@ -355,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `ork_event_calendardetail` (
   `location` mediumtext NOT NULL,
   PRIMARY KEY (`event_calendardetail_id`),
   KEY `event_id` (`event_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=257 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=257 ;
 
 -- --------------------------------------------------------
 
@@ -374,7 +374,7 @@ CREATE TABLE IF NOT EXISTS `ork_game` (
   `state` mediumtext NOT NULL,
   `code` varchar(6) NOT NULL,
   PRIMARY KEY (`game_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -389,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `ork_game_objective` (
   `name` varchar(50) NOT NULL,
   `state` mediumtext NOT NULL,
   PRIMARY KEY (`game_objective_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -403,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `ork_game_team` (
   `game_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`game_team_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -425,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `ork_glicko2` (
   `style_specific` tinyint(1) NOT NULL DEFAULT '0',
   `style` enum('Single Sword','Florentine','Sword and Shield','Great Weapon','Missile','Other','Jugging','Battlegame','Quest') NOT NULL,
   PRIMARY KEY (`glicko2_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -444,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `ork_kingdom` (
   `active` enum('Active','Retired') NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`kingdom_id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 -- --------------------------------------------------------
 
@@ -469,7 +469,7 @@ CREATE TABLE IF NOT EXISTS `ork_kingdomaward` (
   KEY `kingdom_id_2` (`kingdom_id`),
   KEY `name` (`name`),
   KEY `title_class` (`title_class`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6045 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6045 ;
 
 -- --------------------------------------------------------
 
@@ -489,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `ork_log` (
   KEY `action_time` (`action_time`),
   KEY `name` (`name`),
   FULLTEXT KEY `action` (`action`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3826629 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3826629 ;
 
 -- --------------------------------------------------------
 
@@ -512,7 +512,7 @@ CREATE TABLE IF NOT EXISTS `ork_match` (
   `score` double(12,4) NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`match_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -557,7 +557,7 @@ CREATE TABLE IF NOT EXISTS `ork_mundane` (
   KEY `surname` (`surname`),
   KEY `token` (`token`),
   KEY `waivered` (`waivered`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71313 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71313 ;
 
 -- --------------------------------------------------------
 
@@ -575,7 +575,7 @@ CREATE TABLE IF NOT EXISTS `ork_mundane_note` (
   `date` date NOT NULL,
   `date_complete` date NOT NULL,
   PRIMARY KEY (`mundane_note_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32701 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32701 ;
 
 -- --------------------------------------------------------
 
@@ -598,7 +598,7 @@ CREATE TABLE IF NOT EXISTS `ork_officer` (
   KEY `kingdom_id_2` (`kingdom_id`),
   KEY `mundane_id` (`mundane_id`),
   KEY `park_id` (`park_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2477 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2477 ;
 
 -- --------------------------------------------------------
 
@@ -632,7 +632,7 @@ CREATE TABLE IF NOT EXISTS `ork_park` (
   UNIQUE KEY `kingdom_id` (`kingdom_id`,`name`),
   KEY `kingdom_id_2` (`kingdom_id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=586 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=586 ;
 
 -- --------------------------------------------------------
 
@@ -660,7 +660,7 @@ CREATE TABLE IF NOT EXISTS `ork_parkday` (
   `location_url` varchar(255) NOT NULL,
   PRIMARY KEY (`parkday_id`),
   UNIQUE KEY `park_id` (`park_id`,`week_day`,`month_day`,`purpose`,`description`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=409 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=409 ;
 
 -- --------------------------------------------------------
 
@@ -679,7 +679,7 @@ CREATE TABLE IF NOT EXISTS `ork_parktitle` (
   `period` enum('month','week') NOT NULL DEFAULT 'month',
   `period_length` int(11) NOT NULL DEFAULT '6',
   PRIMARY KEY (`parktitle_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=171 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=171 ;
 
 -- --------------------------------------------------------
 
@@ -697,7 +697,7 @@ CREATE TABLE IF NOT EXISTS `ork_participant` (
   `park_id` int(11) NOT NULL,
   `kingdom_id` int(11) NOT NULL,
   PRIMARY KEY (`participant_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -713,7 +713,7 @@ CREATE TABLE IF NOT EXISTS `ork_participant_mundane` (
   `tournament_id` int(11) NOT NULL,
   `bracket_id` int(11) NOT NULL,
   PRIMARY KEY (`participant_mundane_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -729,7 +729,7 @@ CREATE TABLE IF NOT EXISTS `ork_seed` (
   `participant_id` int(11) NOT NULL,
   `order` int(11) NOT NULL,
   PRIMARY KEY (`seed_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -752,7 +752,7 @@ CREATE TABLE IF NOT EXISTS `ork_split` (
   KEY `is_dues` (`is_dues`),
   KEY `src_mundane_id` (`src_mundane_id`),
   KEY `transaction_id` (`transaction_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6069 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6069 ;
 
 -- --------------------------------------------------------
 
@@ -765,7 +765,7 @@ CREATE TABLE IF NOT EXISTS `ork_team` (
   `team_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`team_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -785,7 +785,7 @@ CREATE TABLE IF NOT EXISTS `ork_tournament` (
   `url` varchar(255) NOT NULL,
   `date_time` datetime NOT NULL,
   PRIMARY KEY (`tournament_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -805,7 +805,7 @@ CREATE TABLE IF NOT EXISTS `ork_transaction` (
   KEY `date_created` (`date_created`),
   KEY `recorded_by` (`recorded_by`),
   KEY `transaction_date` (`transaction_date`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1518 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1518 ;
 
 -- --------------------------------------------------------
 
@@ -826,7 +826,7 @@ CREATE TABLE IF NOT EXISTS `ork_unit` (
   PRIMARY KEY (`unit_id`),
   KEY `type` (`type`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2852 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2852 ;
 
 -- --------------------------------------------------------
 
@@ -844,4 +844,4 @@ CREATE TABLE IF NOT EXISTS `ork_unit_mundane` (
   `active` enum('Active','Retired') NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`unit_mundane_id`),
   UNIQUE KEY `unit_id` (`unit_id`,`mundane_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10340 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10340 ;
