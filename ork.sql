@@ -489,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `ork_log` (
   KEY `action_time` (`action_time`),
   KEY `name` (`name`),
   FULLTEXT KEY `action` (`action`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3826629 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3826629 ;
 
 -- --------------------------------------------------------
 
