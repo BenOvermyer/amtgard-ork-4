@@ -18,3 +18,8 @@ assets/tmp/*
 !assets/tmp/.gitkeep
 assets/waivers/*
 !assets/waivers/.gitkeep
+db_created
+db_migrated
+admin_created
+admin-setup.sql
+.vagrant

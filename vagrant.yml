@@ -1,0 +1,99 @@
+---
+- hosts: all
+  vars:
+    admin_email: manatrance@gmail.com
+  tasks:
+    - name: Install the basics
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+        cache_valid_time: 3600
+      with_items:
+        - git
+        - vim
+
+    - name: Add PHP PPA
+      apt_repository: repo=ppa:ondrej/php5
+
+    - name: Install PHP
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - php5-fpm
+        - php5-cli
+
+    - name: Install PHP modules
+      apt: name={{ item }} state=latest update_cache=yes cache_valid_time=3600
+      with_items:
+        - php5-common
+        - php5-mcrypt
+        - php5-intl
+        - php5-curl
+        - php5-dev
+        - php5-gd
+        - php5-memcached
+        - php5-mysql
+        - php5-gmp
+        - php5-json
+
+    - name: Install memcached
+      apt: name=memcached state=latest
+
+    - name: Install MySQL
+      apt: name={{ item }} state=latest
+      with_items:
+        - mysql-server
+        - mysql-client
+
+    - name: Create database
+      shell: mysql -u root < db-setup.sql
+      args:
+        chdir: /vagrant
+        creates: db_created
+
+    - name: Import database structure
+      shell: mysql -u root -D ork < ork.sql
+      args:
+        chdir: /vagrant
+        creates: db_migrated
+
+    - name: Create admin setup SQL file
+      template:
+        src: admin-setup.sql.j2
+        dest: /vagrant/admin-setup.sql
+
+    - name: Run admin setup
+      shell: mysql -u root -D ork < admin-setup.sql
+      args:
+        chdir: /vagrant
+        creates: admin_created
+
+    - name: Place config file
+      template:
+        src: config.php.j2
+        dest: /vagrant/config.php
+
+    - name: Add nginx PPA
+      apt_repository: repo=ppa:nginx/development
+
+    - name: Install nginx
+      apt: name=nginx state=latest update_cache=yes
+
+    - name: Delete default nginx virtualhost
+      file:
+        path: /etc/nginx/sites-available/default
+        state: absent
+
+    - name: Add nginx virtualhost config
+      template:
+        src: nginx-vhost
+        dest: /etc/nginx/sites-available/ork
+
+    - name: Enable nginx virtualhost
+      file:
+        src: /etc/nginx/sites-available/ork
+        dest: /etc/nginx/sites-enabled/ork
+        state: link
+
+    - name: Restart nginx
+      command: service nginx restart
