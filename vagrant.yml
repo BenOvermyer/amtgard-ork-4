@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars:
-    admin_email: manatrance@gmail.com
+    admin_email: changeme@example.com
   tasks:
     - name: Install the basics
       apt:
