@@ -24,5 +24,6 @@ db_migrated
 admin_created
 admin-setup.sql
 .vagrant
-
-/vendor/
+.env
+/vendor
+/node_modules
