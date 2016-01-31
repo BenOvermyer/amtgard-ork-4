@@ -34,7 +34,15 @@
                 </thead>
                 <tbody>
                 {% for kingdom in kingdoms %}
-                    <tr><td>{{ kingdom.name }}</td><td>{{ kingdom.park_count }}</td><td>{{ kingdom.active_parks }} / {{ kingdom.park_count }}</td><td>{{ (kingdom.attendance / 26)|number_format(1, '.', ',') }}</td><td>{{ (kingdom.attendance / 12)|number_format(1, '.', ',') }}</td><td>{{ kingdom.attendance|number_format(0, '.', ',') }}</td></tr>
+                    <tr>
+                        <td><a href="{{ route('kingdom.show', { 'id': kingdom.kingdom_id }) }}">{{ kingdom.name }}</a>
+                        </td>
+                        <td>{{ kingdom.park_count }}</td>
+                        <td>{{ kingdom.active_parks }} / {{ kingdom.park_count }}</td>
+                        <td>{{ (kingdom.attendance / 26)|number_format(1, '.', ',') }}</td>
+                        <td>{{ (kingdom.attendance / 12)|number_format(1, '.', ',') }}</td>
+                        <td>{{ kingdom.attendance|number_format(0, '.', ',') }}</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
@@ -52,7 +60,14 @@
                 </thead>
                 <tbody>
                 {% for principality in principalities %}
-                    <tr><td>{{ principality.name }}</td><td>{{ principality.park_count }}</td><td>{{ principality.active_parks }} / {{ principality.park_count }}</td><td>{{ (principality.attendance / 26)|number_format(1, '.', ',') }}</td><td>{{ (principality.attendance / 12)|number_format(1, '.', ',') }}</td><td>{{ principality.attendance|number_format(0, '.', ',') }}</td></tr>
+                    <tr>
+                        <td>{{ principality.name }}</td>
+                        <td>{{ principality.park_count }}</td>
+                        <td>{{ principality.active_parks }} / {{ principality.park_count }}</td>
+                        <td>{{ (principality.attendance / 26)|number_format(1, '.', ',') }}</td>
+                        <td>{{ (principality.attendance / 12)|number_format(1, '.', ',') }}</td>
+                        <td>{{ principality.attendance|number_format(0, '.', ',') }}</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
@@ -70,7 +85,12 @@
                 </thead>
                 <tbody>
                 {% for event in events %}
-                    <tr><td>{{ event.kingdom }}</td><td>{{ event.park }}</td><td>{{ event.event }}</td><td>{{ event.event_start|date("m/d/Y") }}</td></tr>
+                    <tr>
+                        <td>{{ event.kingdom }}</td>
+                        <td>{{ event.park }}</td>
+                        <td>{{ event.event }}</td>
+                        <td>{{ event.event_start|date("m/d/Y") }}</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
@@ -86,9 +106,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                    {% for tournament in tournaments %}
-                    <tr><td>{{ tournament.name }}</td><td>{{ tournament.kingdom }}</td><td>{{ tournament.park }}</td><td>{{ tournament.event }}</td><td>{{ tournament.date|date("m/d/Y") }}</td></tr>
-                    {% endfor %}
+                {% for tournament in tournaments %}
+                    <tr>
+                        <td>{{ tournament.name }}</td>
+                        <td>{{ tournament.kingdom }}</td>
+                        <td>{{ tournament.park }}</td>
+                        <td>{{ tournament.event }}</td>
+                        <td>{{ tournament.date|date("m/d/Y") }}</td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>

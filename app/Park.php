@@ -11,6 +11,21 @@ class Park extends Model
 
     public function kingdom()
     {
-        return $this->belongsTo('App\Kingdom');
+        return $this->belongsTo( 'App\Kingdom' );
+    }
+
+    public function events()
+    {
+        return $this->hasMany( 'App\Event' );
+    }
+
+    public function tournaments()
+    {
+        return $this->hasMany( 'App\Tournament' );
+    }
+
+    public function parkDays()
+    {
+        return $this->hasMany( 'App\ParkDay' );
     }
 }

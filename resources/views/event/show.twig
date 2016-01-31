@@ -1,0 +1,28 @@
+{% extends 'layout' %}
+
+{% block content %}
+    <div class="row">
+        <div class="small-12 columns">
+            <h1>{{ event.event.name }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-4 columns">
+            <p><strong>Kingdom:</strong> <a
+                        href="{{ route('kingdom.show', {id: event.event.kingdom.kingdom_id }) }}">{{ event.event.kingdom.name }}</a>
+            </p>
+            <p><strong>Park:</strong> <a
+                        href="{{ route('park.show', {id: event.event.park.park_id }) }}">{{ event.event.park.name }}</a>
+            </p>
+            <p><strong>Start:</strong> {{ event.event_start|date('F jS, Y h:i a') }}</p>
+            <p><strong>End:</strong> {{ event.event_end|date('F jS, Y h:i a') }}</p>
+            {% if event.url != '' %}<p><strong>URL:</strong> <a href="{{ event.url }}">{{ event.url_name }}</a>
+                </p>{% endif %}
+            <h3>Location</h3>
+            <p>{{ event.address }}</p>
+        </div>
+        <div class="small-8 columns">
+            <p>{{ event.description|nl2br }}</p>
+        </div>
+    </div>
+{% endblock %}

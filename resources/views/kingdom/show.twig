@@ -1,0 +1,69 @@
+{% extends 'layout' %}
+
+{% block content %}
+    <div class="row">
+        <div class="small-12 columns">
+            <h1>{{ kingdom.name }}</h1>
+            <h2>Principalities</h2>
+            <ul>
+                {% for principality in kingdom.principalities %}
+                    <li>
+                        <a href="{{ route('kingdom.show', { 'id': principality.kingdom_id }) }}">{{ principality.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-4 columns">
+            <h2>Parks</h2>
+            <ul>
+                {% for park in kingdom.parks %}
+                    <li><a href="{{ route('park.show', {id: park.park_id}) }}">{{ park.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="small-4 columns">
+            <h2>Upcoming Tourneys</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Park</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tournament in kingdom.upcomingTournaments %}
+                    <tr>
+                        <td>{{ tournament.name }}</td>
+                        <td>{{ tournament.park.name }}</td>
+                        <td>{{ tournament.date_time|date("m/d/Y") }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="small-4 columns">
+            <h2>Upcoming Events</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Park</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for event in events %}
+                    <tr>
+                        <td><a href="{{ route('event.show', {id: event.detail_id}) }}">{{ event.name }}</a></td>
+                        <td>{{ event.park.name }}</td>
+                        <td>{{ event.event_start|date("m/d/Y") }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

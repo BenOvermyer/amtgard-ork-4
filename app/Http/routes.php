@@ -1,6 +1,18 @@
 <?php
 
-Route::get( '/', [ 'as' => 'home', 'uses' => 'HomeController@index'] );
+Route::get( '/', [ 'as' => 'home', 'uses' => 'HomeController@index' ] );
+
+Route::group( [ 'prefix' => 'event' ], function () {
+    Route::get( '/{id}', [ 'as' => 'event.show', 'uses' => 'EventController@show' ] );
+} );
+
+Route::group( [ 'prefix' => 'kingdom' ], function () {
+    Route::get( '/{id}', [ 'as' => 'kingdom.show', 'uses' => 'KingdomController@show' ] );
+} );
+
+Route::group( [ 'prefix' => 'park' ], function () {
+    Route::get( '/{id}', [ 'as' => 'park.show', 'uses' => 'ParkController@show' ] );
+} );
 
 /*
 |--------------------------------------------------------------------------

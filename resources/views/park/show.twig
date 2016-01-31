@@ -1,0 +1,43 @@
+{% extends 'layout' %}
+
+{% block content %}
+    <div class="row">
+        <div class="small-12 columns">
+            <h1>{{ park.name }}</h1>
+            <strong>{{ park.kingdom.name }}</strong>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-6 columns">
+            <p>{{ park.description }}</p>
+            <p>{{ park.directions }}</p>
+
+            <h2>Park Days</h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>When</th>
+                    <th>Time</th>
+                    <th>Purpose</th>
+                    <th>Location</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for day in park.parkDays %}
+                    <tr>
+                        <td>{{ day.recurrence|capitalize }} {{ day.week_day }}</td>
+                        <td>{{ day.time|date('h:i a') }}</td>
+                        <td>{{ day.purpose|replace({'-': ' '})|title }}</td>
+                        <td><a href="{{ day.location_url }}">View Location</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="small-6 columns">
+            <h2>Upcoming Events</h2>
+
+        </div>
+    </div>
+{% endblock %}

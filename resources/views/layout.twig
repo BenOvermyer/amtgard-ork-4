@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Amtgard ORK</title>
+    <title>{{ pageTitle }} | Amtgard ORK</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.1.2/foundation.min.css">
 </head>
 <body>
@@ -10,14 +10,16 @@
         <div class="top-bar-left">
             <ul class="dropdown menu" data-dropdown-menu>
                 <li class="menu-text">Amtgard ORK</li>
-                <li><a href="#">Home</a></li>
+                <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="#">Admin</a></li>
             </ul>
         </div>
         <div class="top-bar-right">
             <ul class="menu">
                 <li><input type="search" placeholder="Search"></li>
-                <li><button type="button" class="button">Search</button></li>
+                <li>
+                    <button type="button" class="button">Search</button>
+                </li>
             </ul>
         </div>
     </div>
