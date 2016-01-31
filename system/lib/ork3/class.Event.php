@@ -188,8 +188,6 @@ class Event  extends Ork3 {
 	
 	public function CreateEventDetails($request) {
 		$mundane_id = Ork3::$Lib->authorization->IsAuthorized($request['Token']);
-
-		//print_r(array("class.Event.php", $request,$mundane_id)); die();
 		
 		if ($mundane_id > 0 && Ork3::$Lib->authorization->HasAuthority($mundane_id, AUTH_EVENT, $request['EventId'], AUTH_CREATE)) {
 			if (valid_id($request['Current']) && valid_id($request['EventId'])) {

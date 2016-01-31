@@ -1,5 +1,11 @@
 # O.R.K. - Online Record Keeper
 
+## Laravel and Changes from ORK 3
+
+This version of the ORK is built on top of [Laravel 5](https://www.laravel.com).
+
+The SOAP-based web services are still present, but the way they use the underlying code has changed completely. The entire ecosystem - APIs and site - is now PSR-4 compliant.
+
 ## Setting up for development
 
 This project uses [Vagrant](http://www.vagrantup.com) to build out a virtual development environment for you. Make sure you have it installed, and then just type the following command into your terminal from the project root:
@@ -8,13 +14,22 @@ This project uses [Vagrant](http://www.vagrantup.com) to build out a virtual dev
 vagrant up
 ```
 
-This will set up a web server running Ubuntu 14.04 with PHP 5.5, MySQL 5.6, git, and vim installed. It will create a database for the project the first time that it's run and sets up an admin user. By default, this admin user has the email "changeme@example.com" so you'll want to modify it to be your own. To do that, edit the `vagrant.yml` file's `admin_email` var to be your email.
+This will set up a web server running Ubuntu 14.04 with PHP 5.5, NodeJS 5.x, MySQL 5.6, git, and memcached installed. 
+
+It will create a database for the project the first time that it's run and sets up an admin user. By default, this admin user has the email "changeme@example.com" so you'll want to modify it to be your own. To do that, edit the `vagrant.yml` file's `admin_email` var to be your email.
 
 The admin user has the username `admin` and the password `e01e44f3`.
 
-This will also place the `config.php` file required for the application to run.
+Once you've started Vagrant, the next step is to pull down dependencies:
 
-At this point, you can now visit `http://192.168.33.13/orkui` in your browser and you should see the ORK home page. If you prefer, you can also modify your hosts file (`/etc/hosts` on *nix systems) to add the following line:
+```
+composer install
+npm install
+```
+
+Those two commands will install all of the project's dependencies.
+
+At this point, you can now visit `http://192.168.33.13/` in your browser and you should see the ORK home page. If you prefer, you can also modify your hosts file (`/etc/hosts` on *nix systems) to add the following line:
 
 ```
 192.168.33.13  ork.vm

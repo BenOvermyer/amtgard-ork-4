@@ -35,6 +35,29 @@
         - php5-mysql
         - php5-gmp
         - php5-json
+        - phpunit
+
+    - name: Enable mcrypt
+      command: php5enmod mcrypt
+
+    - name: Restart php5-fpm
+      sudo: True
+      shell: service php5-fpm restart
+
+    - name: Install composer globally
+      shell:  curl -sS https://getcomposer.org/installer | /usr/bin/php && sudo /bin/mv -f composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+
+    - name: Add source for NodeJS
+      shell: 'curl --silent --location https://deb.nodesource.com/setup_5.x | sudo bash -'
+
+    - name: Install NodeJS
+      apt: pkg=nodejs state=latest
+
+    - name: Install Gulp globally
+      shell: npm install -g gulp
+
+    - name: Install Postfix
+      apt: pkg=postfix state=latest
 
     - name: Install memcached
       apt: name=memcached state=latest
@@ -48,30 +71,30 @@
     - name: Create database
       shell: mysql -u root < db-setup.sql
       args:
-        chdir: /vagrant
+        chdir: /srv/ork
         creates: db_created
 
     - name: Import database structure
       shell: mysql -u root -D ork < ork.sql
       args:
-        chdir: /vagrant
+        chdir: /srv/ork
         creates: db_migrated
 
     - name: Create admin setup SQL file
       template:
         src: admin-setup.sql.j2
-        dest: /vagrant/admin-setup.sql
+        dest: /srv/ork/admin-setup.sql
 
     - name: Run admin setup
       shell: mysql -u root -D ork < admin-setup.sql
       args:
-        chdir: /vagrant
+        chdir: /srv/ork
         creates: admin_created
 
     - name: Place config file
       template:
         src: config.php.j2
-        dest: /vagrant/config.php
+        dest: /srv/ork/config.php
 
     - name: Add nginx PPA
       apt_repository: repo=ppa:nginx/development
@@ -79,10 +102,15 @@
     - name: Install nginx
       apt: name=nginx state=latest update_cache=yes
 
-    - name: Delete default nginx virtualhost
+    - name: Remove the nginx example configuration files
       file:
-        path: /etc/nginx/sites-available/default
+        path: /etc/nginx/{{ item }}
         state: absent
+      with_items:
+        - sites-available/default
+        - sites-enabled/default
+        - conf.d/default.conf
+        - conf.d/example_ssl.conf
 
     - name: Add nginx virtualhost config
       template:
@@ -95,5 +123,16 @@
         dest: /etc/nginx/sites-enabled/ork
         state: link
 
+    - name: Add php.conf nginx config file
+      template:
+        src: php.conf
+        dest: /etc/nginx/php.conf
+
     - name: Restart nginx
       command: service nginx restart
+
+    - name: Start the memcached service
+      service: name=memcached state=started enabled=yes
+
+    - name: Restart the Postfix service
+      service: name=postfix state=restarted enabled=yes
