@@ -110,6 +110,6 @@ SQL;
             return DB::select( $sql );
         });
 
-        return view( 'home.index' )->with( [ 'kingdoms' => $kingdoms, 'principalities' => $principalities, 'events' => $events, 'tournaments' => $tournaments ] );
+        return view( 'home.index' )->with( [ 'kingdoms' => $kingdoms, 'principalities' => $principalities, 'events' => $events, 'tournaments' => $tournaments, 'pageTitle' => 'Home' ] );
     }
 }
