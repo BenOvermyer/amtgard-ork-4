@@ -21,7 +21,7 @@
     <div class="row">
         <div class="small-6 columns">
             <h3>Kingdoms</h3>
-            <table class='table'>
+            <table class='kingdoms'>
                 <thead>
                 <tr>
                     <th>Kingdom</th>
@@ -35,7 +35,13 @@
                 <tbody>
                 {% for kingdom in kingdoms %}
                     <tr>
-                        <td><a href="{{ route('kingdom.show', { 'id': kingdom.kingdom_id }) }}">{{ kingdom.name }}</a>
+                        <td>
+                            <a href="{{ route('kingdom.show', { 'id': kingdom.kingdom_id }) }}">
+                                <div class="heraldry">
+                                    {% if kingdom.has_heraldry == 1 %}<img src="http://amtgard.com/ork/assets/heraldry/kingdom/{{ "%04d"|format(kingdom.kingdom_id) }}.jpg">{% endif %}
+                                </div>
+                                {{ kingdom.name }}
+                            </a>
                         </td>
                         <td>{{ kingdom.park_count }}</td>
                         <td>{{ kingdom.active_parks }} / {{ kingdom.park_count }}</td>
@@ -47,7 +53,7 @@
                 </tbody>
             </table>
             <h3>Principalities</h3>
-            <table class='table'>
+            <table class='kingdoms'>
                 <thead>
                 <tr>
                     <th>Principality</th>
@@ -61,7 +67,12 @@
                 <tbody>
                 {% for principality in principalities %}
                     <tr>
-                        <td>{{ principality.name }}</td>
+                        <td>
+                            <div class="heraldry">
+                                {% if principality.has_heraldry == 1 %}<img src="http://amtgard.com/ork/assets/heraldry/kingdom/{{ "%04d"|format(principality.kingdom_id) }}.jpg">{% endif %}
+                            </div>
+                            {{ principality.name }}
+                        </td>
                         <td>{{ principality.park_count }}</td>
                         <td>{{ principality.active_parks }} / {{ principality.park_count }}</td>
                         <td>{{ (principality.attendance / 26)|number_format(1, '.', ',') }}</td>
@@ -88,8 +99,8 @@
                     <tr>
                         <td>{{ event.kingdom }}</td>
                         <td>{{ event.park }}</td>
-                        <td>{{ event.event }}</td>
-                        <td>{{ event.event_start|date("m/d/Y") }}</td>
+                        <td><a href="{{ route( 'event.show', { 'id': event.event_id }) }}">{{ event.event }}</a></td>
+                        <td>{{ event.event_start|date("M jS") }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

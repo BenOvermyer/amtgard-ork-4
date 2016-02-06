@@ -1,0 +1,48 @@
+.heraldry {
+  float: left;
+  height: 30px;
+  width: 30px;
+  margin-right: 0.5rem; }
+  .heraldry img {
+    height: 30px; }
+
+.kingdoms li {
+  list-style: none;
+  margin-right: 2rem;
+  float: left; }
+
+.parks li {
+  list-style: none;
+  margin: 1rem 0;
+  line-height: 2rem; }
+
+table td {
+  font-size: 0.8rem; }
+
+.kingdom-title {
+  margin: 2rem 0; }
+  .kingdom-title .parent {
+    display: block;
+    font-size: 1.5rem; }
+  .kingdom-title .heraldry {
+    float: left;
+    height: 200px;
+    width: 200px;
+    margin-right: 1rem; }
+    .kingdom-title .heraldry img {
+      height: 200px; }
+
+.park-title {
+  margin: 2rem 0; }
+  .park-title .kingdom {
+    display: block;
+    font-size: 1.5rem; }
+  .park-title .heraldry {
+    float: left;
+    height: 200px;
+    width: 200px;
+    margin-right: 1rem; }
+    .park-title .heraldry img {
+      height: 200px; }
+
+/*# sourceMappingURL=app.css.map */

@@ -3,23 +3,39 @@
 {% block content %}
     <div class="row">
         <div class="small-12 columns">
-            <h1>{{ kingdom.name }}</h1>
+            <h1 class="kingdom-title">
+                {% if kingdom.has_heraldry == 1 %}
+                    <div class="heraldry">
+                        <img src="http://amtgard.com/ork/assets/heraldry/kingdom/{{ "%04d"|format(kingdom.kingdom_id) }}.jpg">
+                    </div>
+                {% endif %}
+                <span class="kingdom">{{ kingdom.name }}</span>
+                {% if kingdom.parent_kingdom_id != 0 %}
+                    <span class="parent"><a href="{{ route( 'kingdom.show', { 'id': kingdom.parent.kingdom_id }) }}">{{ kingdom.parent.name }}</a></span>
+                {% endif %}
+            </h1>
+            {% if kingdom.principalities|length > 0 %}
             <h2>Principalities</h2>
-            <ul>
+            <ul class="kingdoms">
                 {% for principality in kingdom.principalities %}
                     <li>
+                        <div class="heraldry">{% if principality.has_heraldry == 1 %}<img src="http://amtgard.com/ork/assets/heraldry/kingdom/{{ "%04d"|format(principality.kingdom_id) }}.jpg">{% endif %}</div>
                         <a href="{{ route('kingdom.show', { 'id': principality.kingdom_id }) }}">{{ principality.name }}</a>
                     </li>
                 {% endfor %}
             </ul>
+            {% endif %}
         </div>
     </div>
     <div class="row">
         <div class="small-4 columns">
             <h2>Parks</h2>
-            <ul>
+            <ul class="parks">
                 {% for park in kingdom.parks %}
-                    <li><a href="{{ route('park.show', {id: park.park_id}) }}">{{ park.name }}</a></li>
+                    <li>
+                        <div class="heraldry">{% if park.has_heraldry == 1 %}<img src="http://amtgard.com/ork/assets/heraldry/park/{{ "%05d"|format(park.park_id) }}.jpg">{% endif %}</div>
+                        <a href="{{ route('park.show', {id: park.park_id}) }}">{{ park.name }}</a>
+                    </li>
                 {% endfor %}
             </ul>
         </div>

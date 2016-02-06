@@ -26,6 +26,11 @@ class Kingdom extends Model
         return $this->hasMany( 'App\Kingdom', 'parent_kingdom_id' )->orderBy( 'name' );
     }
 
+    public function parent()
+    {
+        return $this->hasOne( 'App\Kingdom', 'kingdom_id', 'parent_kingdom_id' );
+    }
+
     public function events()
     {
         return $this->hasMany( 'App\Event' );

@@ -82,5 +82,6 @@ return [
      * Cache Timing
      */
     'kingdoms' => env( 'CACHE_KINGDOMS', 5 ),
+    'expiration' => env( 'CACHE_EXPIRATION', 5),
 
 ];

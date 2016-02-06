@@ -7,11 +7,19 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $minutes = 5;
+        $minutes = config( 'cache.expiration' );
 
         $data = Cache::remember( 'kingdoms.summary.homepage', $minutes, function() {
         $sql = <<<SQL
-SELECT k.name, k.kingdom_id, k.parent_kingdom_id, ifnull(pcount.park_count,0) park_count, ifnull(attendance_count,0) attendance, ifnull(monthly_attendance_count,0) monthly, ifnull(activeparks.parkcount,0) active_parks
+SELECT
+k.name,
+k.kingdom_id,
+k.has_heraldry,
+k.parent_kingdom_id,
+ifnull(pcount.park_count,0) park_count,
+ifnull(attendance_count,0) attendance,
+ifnull(monthly_attendance_count,0) monthly,
+ifnull(activeparks.parkcount,0) active_parks
 FROM `ork_kingdom` k
 left join
     (
@@ -71,6 +79,7 @@ SQL;
             $sql = <<<SQL
 SELECT
 ifnull(k.name,'') kingdom,
+k.kingdom_id,
 ifnull(p.name,'') park,
 e.name event,
 c.event_start
@@ -94,6 +103,7 @@ SELECT
 ifnull(k.name,'') kingdom,
 ifnull(p.name,'') park,
 e.name event,
+e.event_id,
 t.name name,
 t.date_time date
 FROM ork_tournament t

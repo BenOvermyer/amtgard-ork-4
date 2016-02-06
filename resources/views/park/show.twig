@@ -3,14 +3,21 @@
 {% block content %}
     <div class="row">
         <div class="small-12 columns">
-            <h1>{{ park.name }}</h1>
-            <strong>{{ park.kingdom.name }}</strong>
+            <h1 class="park-title">
+                {% if park.has_heraldry == 1 %}
+                    <div class="heraldry">
+                        <img src="http://amtgard.com/ork/assets/heraldry/park/{{ "%05d"|format(park.park_id) }}.jpg">
+                    </div>
+                {% endif %}
+                <span class="park">{{ park.name }}</span>
+                <span class="kingdom"><a href="{{ route( 'kingdom.show', { 'id': park.kingdom.kingdom_id }) }}">{{ park.kingdom.name }}</a></span>
+            </h1>
         </div>
     </div>
     <div class="row">
         <div class="small-6 columns">
-            <p>{{ park.description }}</p>
-            <p>{{ park.directions }}</p>
+            <p>{{ park.description|replace({'\\n': '<br>'})|raw }}</p>
+            <p>{{ park.directions|replace({'\\n': '<br>'})|raw }}</p>
 
             <h2>Park Days</h2>
 
