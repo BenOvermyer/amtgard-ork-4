@@ -45,6 +45,24 @@
         </div>
         <div class="small-6 columns">
             <h2>Upcoming Events</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Park</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for event in events %}
+                    <tr>
+                        <td><a href="{{ route('event.show', {id: event.detail_id}) }}">{{ event.name }}</a></td>
+                        <td>{{ event.park.name }}</td>
+                        <td>{{ event.event_start|date("m/d/Y") }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="row">
