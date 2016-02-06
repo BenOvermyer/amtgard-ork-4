@@ -10,7 +10,8 @@
                     </div>
                 {% endif %}
                 <span class="park">{{ park.name }}</span>
-                <span class="parent"><a href="{{ route( 'kingdom.show', { 'id': park.kingdom.kingdom_id }) }}">{{ park.kingdom.name }}</a></span>
+                <span class="parent"><a
+                            href="{{ route( 'kingdom.show', { 'id': park.kingdom.kingdom_id }) }}">{{ park.kingdom.name }}</a></span>
             </h1>
         </div>
     </div>
@@ -44,7 +45,20 @@
         </div>
         <div class="small-6 columns">
             <h2>Upcoming Events</h2>
-
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 columns">
+            <h2>Members</h2>
+            <ul>
+                {% for member in park.members %}
+                    {% if member.active %}
+                        <li>
+                            <a href="{{ route( 'player.show', { 'id': member.mundane_id }) }}">{{ member.persona }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         </div>
     </div>
 {% endblock %}

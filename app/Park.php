@@ -28,4 +28,9 @@ class Park extends Model
     {
         return $this->hasMany( 'App\ParkDay' );
     }
+
+    public function members()
+    {
+        return $this->hasMany( 'App\Mundane' )->orderBy( 'persona' );
+    }
 }
