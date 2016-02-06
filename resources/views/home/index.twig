@@ -21,7 +21,8 @@
                         <td>
                             <a href="{{ route('kingdom.show', { 'id': kingdom.kingdom_id }) }}">
                                 <div class="heraldry">
-                                    {% if kingdom.has_heraldry == 1 %}<img src="http://amtgard.com/ork/assets/heraldry/kingdom/{{ "%04d"|format(kingdom.kingdom_id) }}.jpg">{% endif %}
+                                    {% if kingdom.has_heraldry == 1 %}<img
+                                        src="http://amtgard.com/ork/assets/heraldry/kingdom/{{ "%04d"|format(kingdom.kingdom_id) }}.jpg">{% endif %}
                                 </div>
                                 {{ kingdom.name }}
                             </a>
@@ -51,10 +52,13 @@
                 {% for principality in principalities %}
                     <tr>
                         <td>
-                            <div class="heraldry">
-                                {% if principality.has_heraldry == 1 %}<img src="http://amtgard.com/ork/assets/heraldry/kingdom/{{ "%04d"|format(principality.kingdom_id) }}.jpg">{% endif %}
-                            </div>
-                            {{ principality.name }}
+                            <a href="{{ route('kingdom.show', { 'id': principality.kingdom_id }) }}">
+                                <div class="heraldry">
+                                    {% if principality.has_heraldry == 1 %}<img
+                                        src="http://amtgard.com/ork/assets/heraldry/kingdom/{{ "%04d"|format(principality.kingdom_id) }}.jpg">{% endif %}
+                                </div>
+                                {{ principality.name }}
+                            </a>
                         </td>
                         <td>{{ principality.park_count }}</td>
                         <td>{{ principality.active_parks }} / {{ principality.park_count }}</td>
