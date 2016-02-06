@@ -41,6 +41,11 @@ class Kingdom extends Model
         return $this->hasMany( 'App\Tournament' );
     }
 
+    public function players()
+    {
+        return $this->hasMany( 'App\Mundane' );
+    }
+
     public function upcomingTournaments()
     {
         return $this->hasMany( 'App\Tournament' )->where( 'date_time', '>=', date( 'm/D/Y' ) )->orderBy( 'date_time', 'asc' );

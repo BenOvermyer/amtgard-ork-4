@@ -1,0 +1,45 @@
+{% extends 'layout' %}
+
+{% block content %}
+    <div class="row">
+        <div class="small-12 columns">
+            <h1 class="title">
+                {% if unit.has_heraldry == 1 %}
+                    <div class="heraldry">
+                        <img src="http://amtgard.com/ork/assets/heraldry/unit/{{ "%05d"|format(unit.unit_id) }}.jpg">
+                    </div>
+                {% endif %}
+                <span class="unit">{{ unit.name }}</span>
+                <span class="type">{{ unit.type }}</span>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 columns">
+            <p>{{ unit.description }}</p>
+
+            <h2>Members</h2>
+            <table class="members">
+                <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>Role</th>
+                    <th>Title</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for membership in unit.unitMemberships %}
+                    {% if membership.mundane_id %}
+                    <tr>
+                        <td><a href="{{ route( 'player.show', { 'id': membership.mundane_id }) }}">{{ membership.member.persona }}</a></td>
+                        <td>{{ membership.role }}</td>
+                        <td>{{ membership.title }}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

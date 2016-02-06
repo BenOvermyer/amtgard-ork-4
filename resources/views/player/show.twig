@@ -1,0 +1,131 @@
+{% extends 'layout' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="small-8 columns">
+            <h1 class="title">
+                {% if player.has_heraldry == 1 %}
+                    <div class="heraldry">
+                        <img src="http://amtgard.com/ork/assets/heraldry/player/{{ "%06d"|format(player.mundane_id) }}.jpg">
+                    </div>
+                {% endif %}
+                <span class="persona">{{ player.persona }}</span>
+                {% if player.given_name|length > 0 %}
+                    <span class="real-name">{{ player.given_name }} {{ player.surname }}</span>
+                {% endif %}
+            </h1>
+        </div>
+        <div class="small-4 columns">
+            {% if player.has_image == 1 %}
+                <div class="photo thumbnail">
+                    <img src="http://amtgard.com/ork/assets/players/{{ "%06d"|format(player.mundane_id) }}.jpg">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 columns">
+            {% if player.units|length > 0 %}
+                <h2>Households &amp; Companies</h2>
+                <ul>
+                    {% for unit in player.units %}
+                        <li><a href="{{ route( 'unit.show', { 'id': unit.unit_id }) }}">{{ unit.name }}</a> ({{ unit.type }})</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-9 columns">
+            <h2>Awards &amp; Titles</h2>
+            <table class="awards">
+                <thead>
+                <tr>
+                    <th>Award</th>
+                    <th>Rank</th>
+                    <th>Date</th>
+                    <th>Given By</th>
+                    <th>Given At</th>
+                    <th>Note</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for award in player.awards %}
+                    <tr>
+                        <td>{% if award.custom_name|length > 0 %}{{ award.custom_name }}{% else %}{{ award.details.name }}{% endif %}</td>
+                        <td>{% if award.rank > 0 %}{{ award.rank }}{% endif %}</td>
+                        <td>{{ award.date|date('M jS, Y') }}</td>
+                        <td>{% if award.givenBy %}<a
+                                href="{{ route( 'player.show', { 'id': award.givenBy.mundane_id }) }}">{{ award.givenBy.persona }}</a>{% endif %}
+                        </td>
+                        <td>{% if award.atEvent %}{{ award.atEvent.name }}</a> {% endif %}{% if award.atPark %}<a
+                                href="{{ route( 'park.show', { 'id': award.atPark.park_id }) }}">{{ award.atPark.name }}</a> {% endif %}{% if award.atKingdom %}
+                                <a
+                                href="{{ route( 'kingdom.show', { 'id': award.atKingdom.kingdom_id }) }}">{{ award.atKingdom.name }}</a>{% endif %}
+                        </td>
+                        <td>{{ award.note }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="small-3 columns">
+            <h2>Classes</h2>
+            <table class="classes">
+                <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Credits</th>
+                    <th>Level</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for class in classes %}
+                    {% if class.credits > 0 %}
+                        <tr>
+                            <td>{{ class.class_name }}</td>
+                            <td>{{ class.credits|number_format(0) }}</td>
+                            <td>{{ class.level }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 columns">
+            <h2>Attendance</h2>
+            <table class="attendance">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Kingdom</th>
+                    <th>Park</th>
+                    <th>Event</th>
+                    <th>Class</th>
+                    <th>Credits</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in attendance %}
+                    <tr>
+                        <td>{{ row.date|date('M jS, Y') }}</td>
+                        <td>{% if row.kingdom_name %}<a
+                                href="{{ route( 'kingdom.show', { 'id': row.kingdom_id }) }}">{{ row.kingdom_name }}</a>{% endif %}
+                        </td>
+                        <td>{% if row.park_name %}<a
+                                href="{{ route( 'park.show', { 'id': row.park_id }) }}">{{ row.park_name }}</a>{% endif %}
+                        </td>
+                        <td>{{ row.event_name }}</td>
+                        <td>{{ row.class_name }}</td>
+                        <td>{{ row.credits }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

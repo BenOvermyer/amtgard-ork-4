@@ -14,6 +14,14 @@ Route::group( [ 'prefix' => 'park' ], function () {
     Route::get( '/{id}', [ 'as' => 'park.show', 'uses' => 'ParkController@show' ] );
 } );
 
+Route::group( [ 'prefix' => 'player' ], function () {
+    Route::get( '/{id}', [ 'as' => 'player.show', 'uses' => 'PlayerController@show' ] );
+} );
+
+Route::group( [ 'prefix' => 'unit' ], function () {
+    Route::get( '/{id}', [ 'as' => 'unit.show', 'uses' => 'UnitController@show' ] );
+} );
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes

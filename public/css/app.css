@@ -19,30 +19,30 @@
 table td {
   font-size: 0.8rem; }
 
-.kingdom-title {
+.title {
   margin: 2rem 0; }
-  .kingdom-title .parent {
+  .title .parent {
     display: block;
     font-size: 1.5rem; }
-  .kingdom-title .heraldry {
+  .title .heraldry {
     float: left;
     height: 200px;
     width: 200px;
     margin-right: 1rem; }
-    .kingdom-title .heraldry img {
+    .title .heraldry img {
       height: 200px; }
 
-.park-title {
+.real-name {
+  display: block;
+  font-size: 1.25rem; }
+
+.type {
+  display: block;
+  font-size: 1.25rem; }
+
+.photo {
   margin: 2rem 0; }
-  .park-title .kingdom {
-    display: block;
-    font-size: 1.5rem; }
-  .park-title .heraldry {
-    float: left;
-    height: 200px;
-    width: 200px;
-    margin-right: 1rem; }
-    .park-title .heraldry img {
-      height: 200px; }
+  .photo img {
+    max-height: 200px; }
 
 /*# sourceMappingURL=app.css.map */
