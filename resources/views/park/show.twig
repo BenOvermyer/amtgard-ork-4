@@ -10,7 +10,7 @@
                     </div>
                 {% endif %}
                 <span class="park">{{ park.name }}</span>
-                <span class="kingdom"><a href="{{ route( 'kingdom.show', { 'id': park.kingdom.kingdom_id }) }}">{{ park.kingdom.name }}</a></span>
+                <span class="parent"><a href="{{ route( 'kingdom.show', { 'id': park.kingdom.kingdom_id }) }}">{{ park.kingdom.name }}</a></span>
             </h1>
         </div>
     </div>
