@@ -11,7 +11,7 @@
                 {% endif %}
                 <span class="park">{{ park.name }}</span>
                 <span class="parent"><a
-                            href="{{ route( 'kingdom.show', { 'id': park.kingdom.kingdom_id }) }}">{{ park.kingdom.name }}</a></span>
+                            href="{{ route( 'kingdom.show', { 'id': park.kingdom.kingdom_id }) }}">{{ park.kingdom.name|raw }}</a></span>
             </h1>
         </div>
     </div>

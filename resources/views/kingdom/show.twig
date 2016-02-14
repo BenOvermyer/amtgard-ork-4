@@ -9,7 +9,7 @@
                         <img src="http://amtgard.com/ork/assets/heraldry/kingdom/{{ "%04d"|format(kingdom.kingdom_id) }}.jpg">
                     </div>
                 {% endif %}
-                <span class="kingdom">{{ kingdom.name }}</span>
+                <span class="kingdom">{{ kingdom.name|raw }}</span>
                 {% if kingdom.parent_kingdom_id != 0 %}
                     <span class="parent"><a href="{{ route( 'kingdom.show', { 'id': kingdom.parent.kingdom_id }) }}">{{ kingdom.parent.name }}</a></span>
                 {% endif %}
