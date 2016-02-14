@@ -98,4 +98,15 @@ SQL;
 
         return view( 'player.show', [ 'player' => $player, 'classes' => $classes, 'awards' => $awards, 'attendance' => $attendance, 'pageTitle' => $player->persona ] );
     }
+
+    public function search( $query )
+    {
+        if ( strlen( $query ) < 3 ) {
+            $players = [];
+        } else {
+            $players = Mundane::where( 'persona', 'like', '%' . $query . '%' )->orderBy( 'persona' )->get();
+        }
+
+        return view( 'player.search', [ 'players' => $players, 'query' => $query, 'pageTitle' => 'Search Results for "' . $query . '"' ] );
+    }
 }

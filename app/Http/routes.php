@@ -16,6 +16,7 @@ Route::group( [ 'prefix' => 'park' ], function () {
 
 Route::group( [ 'prefix' => 'player' ], function () {
     Route::get( '/{id}', [ 'as' => 'player.show', 'uses' => 'PlayerController@show' ] );
+    Route::get( '/search/{query}', [ 'as' => 'player.search', 'uses' => 'PlayerController@search' ] );
 } );
 
 Route::group( [ 'prefix' => 'unit' ], function () {

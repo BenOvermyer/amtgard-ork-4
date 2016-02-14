@@ -1,0 +1,29 @@
+{% extends 'layout' %}
+
+{% block content %}
+    <div class="row">
+        <div class="small-12 columns">
+            <h1>Search Results for "{{ query }}"</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Park</th>
+                    <th>Kingdom</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for player in players %}
+                    <tr>
+                        <td><a href="{{ route( 'player.show', { 'id': player.mundane_id } ) }}">{{ player.persona }}</a>
+                        </td>
+                        <td>{{ player.park.name }}</td>
+                        <td>{{ player.kingdom.name|raw }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
