@@ -10,4 +10,11 @@ $( document ).ready( function () {
 
     return false;
   } );
+
+  $( 'input.player-search' ).keydown( function ( e ) {
+    if ( e.keyCode === 13 ) {
+      $( 'button.search' ).click();
+      return false;
+    }
+  } );
 } );
