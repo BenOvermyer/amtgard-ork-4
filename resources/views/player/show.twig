@@ -90,7 +90,15 @@
                         <tr>
                             <td>{{ class.class_name }}</td>
                             <td>{{ ( class.credits + class.reconciled )|number_format(0) }}</td>
-                            <td>{{ class.level }}</td>
+                            <td>
+                                {% if ( class.credits + class.reconciled ) < 5 %}1
+                                {% elseif ( class.credits + class.reconciled ) < 12 %}2
+                                {% elseif ( class.credits + class.reconciled ) < 21 %}3
+                                {% elseif ( class.credits + class.reconciled ) < 34 %}4
+                                {% elseif ( class.credits + class.reconciled ) < 53 %}5
+                                {% elseif ( class.credits + class.reconciled ) >= 53 %}6
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endif %}
                 {% endfor %}
