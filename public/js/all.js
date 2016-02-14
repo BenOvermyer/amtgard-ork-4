@@ -22,11 +22,12 @@ $( document ).ready( function () {
     if ( !$( 'input' ).is( ':focus' ) ) {
       if ( e.keyCode === 83 ) {
         $( 'input.player-search' ).focus();
+        return false;
       }
       else if ( e.keyCode === 72 ) {
         location = '/';
+        return false;
       }
-      return false;
     }
   } );
 } );
