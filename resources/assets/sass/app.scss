@@ -64,3 +64,23 @@ table {
     max-height: 200px;
   }
 }
+
+footer {
+  border-top: 1px solid #eee;
+  color: #333;
+  margin-top: 2rem;
+  padding-top: 2rem;
+
+  h2 {
+    font-size: 1rem;
+  }
+  p {
+    span.badge {
+      font-size: 0.75rem;
+    }
+    font-size: 0.75rem;
+  }
+  li {
+    list-style: none;
+  }
+}

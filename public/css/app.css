@@ -45,4 +45,18 @@ table td {
   .photo img {
     max-height: 200px; }
 
+footer {
+  border-top: 1px solid #eee;
+  color: #333;
+  margin-top: 2rem;
+  padding-top: 2rem; }
+  footer h2 {
+    font-size: 1rem; }
+  footer p {
+    font-size: 0.75rem; }
+    footer p span.badge {
+      font-size: 0.75rem; }
+  footer li {
+    list-style: none; }
+
 /*# sourceMappingURL=app.css.map */

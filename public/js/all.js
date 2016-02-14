@@ -17,5 +17,17 @@ $( document ).ready( function () {
       return false;
     }
   } );
+
+  $( document ).keydown( function ( e ) {
+    if ( !$( 'input' ).is( ':focus' ) ) {
+      if ( e.keyCode === 83 ) {
+        $( 'input.player-search' ).focus();
+      }
+      else if ( e.keyCode === 72 ) {
+        location = '/';
+      }
+      return false;
+    }
+  } );
 } );
 //# sourceMappingURL=all.js.map
