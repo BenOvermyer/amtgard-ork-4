@@ -68,6 +68,34 @@ ORDER BY a.date DESC
 SQL;
         $attendance = DB::select( $sql, [ $id ] );
 
-        return view( 'player.show', [ 'player' => $player, 'classes' => $classes, 'attendance' => $attendance, 'pageTitle' => $player->persona ] );
+        $sql = <<<SQL
+SELECT DISTINCT
+awards.*,
+a.*,
+ka.name AS kingdom_awardname,
+p.name AS park_name,
+k.name AS kingdom_name,
+e.name AS event_name,
+m.persona
+FROM ork_awards awards
+LEFT JOIN ork_kingdomaward ka ON awards.kingdomaward_id = ka.kingdomaward_id
+LEFT JOIN ork_award a ON a.award_id = ka.award_id
+LEFT JOIN ork_park p ON p.park_id = awards.at_park_id
+LEFT JOIN ork_kingdom k ON k.kingdom_id = awards.at_kingdom_id
+LEFT JOIN ork_event e ON e.event_id = awards.at_event_id
+LEFT JOIN ork_mundane m ON m.mundane_id = awards.given_by_id
+WHERE awards.mundane_id = ?
+ORDER BY
+a.is_ladder,
+a.is_title,
+a.title_class,
+a.name,
+awards.rank,
+awards.date
+SQL;
+
+        $awards = DB::select( $sql, [ $id ] );
+
+        return view( 'player.show', [ 'player' => $player, 'classes' => $classes, 'awards' => $awards, 'attendance' => $attendance, 'pageTitle' => $player->persona ] );
     }
 }

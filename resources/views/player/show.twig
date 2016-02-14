@@ -48,18 +48,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for award in player.awards %}
+                {% for award in awards %}
                     <tr>
-                        <td>{% if award.custom_name|length > 0 %}{{ award.custom_name }}{% else %}{{ award.details.name }}{% endif %}</td>
+                        <td>{% if award.custom_name|length > 0 %}{{ award.custom_name }}{% else %}{{ award.name }}{% endif %}</td>
                         <td>{% if award.rank > 0 %}{{ award.rank }}{% endif %}</td>
-                        <td>{{ award.date|date('M jS, Y') }}</td>
-                        <td>{% if award.givenBy %}<a
-                                href="{{ route( 'player.show', { 'id': award.givenBy.mundane_id }) }}">{{ award.givenBy.persona }}</a>{% endif %}
+                        <td>{% if award.date != '0000-00-00' %}{{ award.date|date('M jS, Y') }}{% endif %}</td>
+                        <td>{% if award.persona %}<a
+                                href="{{ route( 'player.show', { 'id': award.given_by_id }) }}">{{ award.persona }}</a>{% endif %}
                         </td>
-                        <td>{% if award.atEvent %}{{ award.atEvent.name }}</a> {% endif %}{% if award.atPark %}<a
-                                href="{{ route( 'park.show', { 'id': award.atPark.park_id }) }}">{{ award.atPark.name }}</a> {% endif %}{% if award.atKingdom %}
+                        <td>
+                            {% if award.event_name %}{{ award.event_name }}</a> {% endif %}
+                            {% if award.event_name and award.park_name %}, {% endif %}
+                            {% if award.park_name %}<a
+                                href="{{ route( 'park.show', { 'id': award.at_park_id }) }}">{{ award.park_name }}</a>
+                            {% endif %}
+                            {% if award.park_name and award.kingdom_name %}, {% endif %}
+                            {% if award.kingdom_name %}
                                 <a
-                                href="{{ route( 'kingdom.show', { 'id': award.atKingdom.kingdom_id }) }}">{{ award.atKingdom.name }}</a>{% endif %}
+                                href="{{ route( 'kingdom.show', { 'id': award.at_kingdom_id }) }}">{{ award.kingdom_name }}</a>
+                            {% endif %}
                         </td>
                         <td>{{ award.note }}</td>
                     </tr>
