@@ -22,14 +22,42 @@
         </div>
     </div>
     <div class="row">
-        <div class="small-12 columns">
+        <div class="small-6 columns">
             {% if player.units|length > 0 %}
                 <h2>Households &amp; Companies</h2>
                 <ul>
                     {% for unit in player.units %}
-                        <li><a href="{{ route( 'unit.show', { 'id': unit.unit_id }) }}">{{ unit.name }}</a> ({{ unit.type }})</li>
+                        <li><a href="{{ route( 'unit.show', { 'id': unit.unit_id }) }}">{{ unit.name }}</a>
+                            ({{ unit.type }})
+                        </li>
                     {% endfor %}
                 </ul>
+            {% endif %}
+        </div>
+        <div class="small-6 columns">
+            {% if notes|length > 0 %}
+                <h2>Notes</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Note</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for note in notes %}
+                        <tr>
+                            <td>{{ note.note }}</td>
+                            <td>{{ note.description }}</td>
+                            <td>
+                                {% if note.date != '1969-12-31' %}{{ note.date|date('M jS, Y') }}{% else %}The beginning of time{% endif %}
+                                {% if note.date_complete != '1969-12-31' %} to {{ note.date_complete|date('M jS, Y') }}{% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             {% endif %}
         </div>
     </div>
@@ -65,7 +93,7 @@
                             {% if award.park_name and award.kingdom_name %}, {% endif %}
                             {% if award.kingdom_name %}
                                 <a
-                                href="{{ route( 'kingdom.show', { 'id': award.at_kingdom_id }) }}">{{ award.kingdom_name }}</a>
+                                        href="{{ route( 'kingdom.show', { 'id': award.at_kingdom_id }) }}">{{ award.kingdom_name }}</a>
                             {% endif %}
                         </td>
                         <td>{{ award.note }}</td>

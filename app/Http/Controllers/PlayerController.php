@@ -96,13 +96,30 @@ SQL;
 
         $awards = DB::select( $sql, [ $id ] );
 
-        return view( 'player.show', [ 'player' => $player, 'classes' => $classes, 'awards' => $awards, 'attendance' => $attendance, 'pageTitle' => $player->persona ] );
+        $sql = <<<SQL
+SELECT
+*
+FROM
+ork_mundane_note
+WHERE
+mundane_id = ?
+SQL;
+        $notes = DB::select( $sql, [ $id ] );
+
+        return view( 'player.show', [
+            'player'     => $player,
+            'classes'    => $classes,
+            'awards'     => $awards,
+            'attendance' => $attendance,
+            'notes'      => $notes,
+            'pageTitle'  => $player->persona,
+        ] );
     }
 
     public function search( $query )
     {
         if ( strlen( $query ) < 3 ) {
-            $players = [];
+            $players = [ ];
         } else {
             $players = Mundane::where( 'persona', 'like', '%' . $query . '%' )->orderBy( 'persona' )->get();
         }
