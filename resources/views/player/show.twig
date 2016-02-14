@@ -89,7 +89,7 @@
                     {% if class.credits > 0 %}
                         <tr>
                             <td>{{ class.class_name }}</td>
-                            <td>{{ class.credits|number_format(0) }}</td>
+                            <td>{{ ( class.credits + class.reconciled )|number_format(0) }}</td>
                             <td>{{ class.level }}</td>
                         </tr>
                     {% endif %}
