@@ -14,13 +14,32 @@ class ParkController extends Controller
 
         $events = Cache::remember( 'park.' . $id . '.show.events', config( 'cache.expiration' ), function () use ( $id ) {
             $sql = <<<SQL
-SELECT e.name name, d.event_start, p.name park, d.event_calendardetail_id detail_id
+SELECT
+DISTINCT
+e.*,
+k.name AS kingdom_name,
+p.name AS park_name,
+m.persona,
+cd.event_start,
+cd.event_calendardetail_id,
+u.name AS unit_name,
+SUBSTRING(cd.description, 1, 100) AS short_description
 FROM ork_event e
-INNER JOIN ork_event_calendardetail d ON e.event_id = d.event_calendardetail_id
-INNER JOIN ork_park p ON e.park_id = p.park_id
-WHERE d.event_start >= NOW()
-AND p.park_id = ?
-ORDER BY d.event_start ASC
+LEFT JOIN ork_kingdom k ON k.kingdom_id = e.kingdom_id
+LEFT JOIN ork_park p ON p.park_id = e.park_id
+LEFT JOIN ork_mundane m ON m.mundane_id = e.mundane_id
+LEFT JOIN ork_event_calendardetail cd ON e.event_id = cd.event_id
+LEFT JOIN ork_unit u ON e.unit_id = u.unit_id
+WHERE
+e.park_id = ?
+AND cd.event_start IS NOT NULL
+AND cd.event_start > DATE_ADD(NOW(), INTERVAL - 7 DAY)
+AND cd.current = 1
+ORDER BY
+cd.event_start,
+kingdom_name,
+park_name,
+e.name
 SQL;
             return DB::select( $sql, [ $id ] );
         });

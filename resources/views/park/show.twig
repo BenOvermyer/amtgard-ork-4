@@ -56,8 +56,8 @@
                 <tbody>
                 {% for event in events %}
                     <tr>
-                        <td><a href="{{ route('event.show', {id: event.detail_id}) }}">{{ event.name }}</a></td>
-                        <td>{{ event.park.name }}</td>
+                        <td><a href="{{ route('event.show', {id: event.event_calendardetail_id}) }}">{{ event.name }}</a></td>
+                        <td>{{ event.park_name }}</td>
                         <td>{{ event.event_start|date("m/d/Y") }}</td>
                     </tr>
                 {% endfor %}
