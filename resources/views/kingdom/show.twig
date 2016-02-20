@@ -11,19 +11,22 @@
                 {% endif %}
                 <span class="kingdom">{{ kingdom.name|raw }}</span>
                 {% if kingdom.parent_kingdom_id != 0 %}
-                    <span class="parent"><a href="{{ route( 'kingdom.show', { 'id': kingdom.parent.kingdom_id }) }}">{{ kingdom.parent.name }}</a></span>
+                    <span class="parent"><a
+                                href="{{ route( 'kingdom.show', { 'id': kingdom.parent.kingdom_id }) }}">{{ kingdom.parent.name }}</a></span>
                 {% endif %}
             </h1>
             {% if kingdom.principalities|length > 0 %}
-            <h2>Principalities</h2>
-            <ul class="kingdoms">
-                {% for principality in kingdom.principalities %}
-                    <li>
-                        <div class="heraldry">{% if principality.has_heraldry == 1 %}<img src="http://amtgard.com/ork/assets/heraldry/kingdom/{{ "%04d"|format(principality.kingdom_id) }}.jpg">{% endif %}</div>
-                        <a href="{{ route('kingdom.show', { 'id': principality.kingdom_id }) }}">{{ principality.name }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
+                <h2>Principalities</h2>
+                <ul class="kingdoms">
+                    {% for principality in kingdom.principalities %}
+                        <li>
+                            <div class="heraldry">{% if principality.has_heraldry == 1 %}<img
+                                    src="http://amtgard.com/ork/assets/heraldry/kingdom/{{ "%04d"|format(principality.kingdom_id) }}.jpg">{% endif %}
+                            </div>
+                            <a href="{{ route('kingdom.show', { 'id': principality.kingdom_id }) }}">{{ principality.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
             {% endif %}
         </div>
     </div>
@@ -33,53 +36,81 @@
             <ul class="parks">
                 {% for park in kingdom.parks %}
                     <li>
-                        <div class="heraldry">{% if park.has_heraldry == 1 %}<img src="http://amtgard.com/ork/assets/heraldry/park/{{ "%05d"|format(park.park_id) }}.jpg">{% endif %}</div>
+                        <div class="heraldry">{% if park.has_heraldry == 1 %}<img
+                                src="http://amtgard.com/ork/assets/heraldry/park/{{ "%05d"|format(park.park_id) }}.jpg">{% endif %}
+                        </div>
                         <a href="{{ route('park.show', {id: park.park_id}) }}">{{ park.name }}</a>
                     </li>
                 {% endfor %}
             </ul>
         </div>
-        <div class="small-4 columns">
-            <h2>Upcoming Tourneys</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Event</th>
-                    <th>Park</th>
-                    <th>Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for tournament in kingdom.upcomingTournaments %}
-                    <tr>
-                        <td>{{ tournament.name }}</td>
-                        <td>{{ tournament.park.name }}</td>
-                        <td>{{ tournament.date_time|date("m/d/Y") }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+        <div class="small-8 columns">
+            <div class="row">
+                <div class="small-6 columns">
+                    <h2>Upcoming Tourneys</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Park</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for tournament in kingdom.upcomingTournaments %}
+                            <tr>
+                                <td>{{ tournament.name }}</td>
+                                <td>{{ tournament.park.name }}</td>
+                                <td>{{ tournament.date_time|date("m/d/Y") }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="small-6 columns">
+                    <h2>Upcoming Events</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Park</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for event in events %}
+                            <tr>
+                                <td><a href="{{ route('event.show', {id: event.event_calendardetail_id}) }}">{{ event.name }}</a></td>
+                                <td>{{ event.park_name }}</td>
+                                <td>{{ event.event_start|date("m/d/Y") }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <h2>Officers</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Persona</th>
+                            <th>Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for officer in officers %}
+                            <tr>
+                                <td><a href="{{ route('player.show', { id: officer.mundane_id }) }}">{{ officer.persona }}</a></td>
+                                <td>{{ officer.officer_role }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="small-4 columns">
-            <h2>Upcoming Events</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Event</th>
-                    <th>Park</th>
-                    <th>Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for event in events %}
-                    <tr>
-                        <td><a href="{{ route('event.show', {id: event.detail_id}) }}">{{ event.name }}</a></td>
-                        <td>{{ event.park.name }}</td>
-                        <td>{{ event.event_start|date("m/d/Y") }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+
     </div>
 {% endblock %}
