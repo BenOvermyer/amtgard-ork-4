@@ -23,10 +23,10 @@
     </div>
     <div class="row">
         <div class="small-6 columns">
-            {% if player.units|length > 0 %}
+            {% if units|length > 0 %}
                 <h2>Households &amp; Companies</h2>
                 <ul>
-                    {% for unit in player.units %}
+                    {% for unit in units %}
                         <li><a href="{{ route( 'unit.show', { 'id': unit.unit_id }) }}">{{ unit.name }}</a>
                             ({{ unit.type }})
                         </li>
@@ -78,7 +78,15 @@
                 <tbody>
                 {% for award in awards %}
                     <tr>
-                        <td>{% if award.custom_name|length > 0 %}{{ award.custom_name }}{% else %}{{ award.name }}{% endif %}</td>
+                        <td>
+                            {% if award.kingdom_awardname|length > 0 and award.kingdom_awardname != 'Custom Award' %}
+                                {{ award.kingdom_awardname }}
+                            {% elseif award.custom_name|length > 0 %}
+                                {{ award.custom_name }}
+                            {% else %}
+                                {{ award.name }}
+                            {% endif %}
+                        </td>
                         <td>{% if award.rank > 0 %}{{ award.rank }}{% endif %}</td>
                         <td>{% if award.date != '0000-00-00' %}{{ award.date|date('M jS, Y') }}{% endif %}</td>
                         <td>{% if award.persona %}<a
@@ -93,7 +101,7 @@
                             {% if award.park_name and award.kingdom_name %}, {% endif %}
                             {% if award.kingdom_name %}
                                 <a
-                                        href="{{ route( 'kingdom.show', { 'id': award.at_kingdom_id }) }}">{{ award.kingdom_name }}</a>
+                                        href="{{ route( 'kingdom.show', { 'id': award.at_kingdom_id }) }}">{{ award.kingdom_name|raw }}</a>
                             {% endif %}
                         </td>
                         <td>{{ award.note }}</td>
@@ -153,7 +161,7 @@
                     <tr>
                         <td>{{ row.date|date('M jS, Y') }}</td>
                         <td>{% if row.kingdom_name %}<a
-                                href="{{ route( 'kingdom.show', { 'id': row.kingdom_id }) }}">{{ row.kingdom_name }}</a>{% endif %}
+                                href="{{ route( 'kingdom.show', { 'id': row.kingdom_id }) }}">{{ row.kingdom_name|raw }}</a>{% endif %}
                         </td>
                         <td>{% if row.park_name %}<a
                                 href="{{ route( 'park.show', { 'id': row.park_id }) }}">{{ row.park_name }}</a>{% endif %}

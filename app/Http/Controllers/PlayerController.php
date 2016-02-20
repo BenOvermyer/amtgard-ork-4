@@ -106,12 +106,31 @@ mundane_id = ?
 SQL;
         $notes = DB::select( $sql, [ $id ] );
 
+        $sql = <<<SQL
+SELECT
+DISTINCT u.*,
+m.*,
+COUNT(um.mundane_id) AS member_count
+FROM ork_unit u
+LEFT JOIN ork_unit_mundane um ON u.unit_id = um.unit_id
+LEFT JOIN ork_mundane m ON m.mundane_id = um.mundane_id
+LEFT JOIN ork_event e ON e.unit_id = u.unit_id
+WHERE
+um.mundane_id = ?
+AND um.active = 1
+GROUP BY u.unit_id
+ORDER BY u.name
+SQL;
+
+        $units = DB::select( $sql, [ $id ] );
+
         return view( 'player.show', [
             'player'     => $player,
             'classes'    => $classes,
             'awards'     => $awards,
             'attendance' => $attendance,
             'notes'      => $notes,
+            'units'      => $units,
             'pageTitle'  => $player->persona,
         ] );
     }
