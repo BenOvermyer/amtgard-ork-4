@@ -14,41 +14,41 @@
         - vim
 
     - name: Add PHP PPA
-      apt_repository: repo=ppa:ondrej/php5
+      apt_repository: repo=ppa:ondrej/php
 
     - name: Install PHP
       apt: name={{ item }} state=latest update_cache=yes
       with_items:
-        - php5-fpm
-        - php5-cli
+        - php7.0-fpm
+        - php7.0-cli
 
     - name: Install PHP modules
       apt: name={{ item }} state=latest update_cache=yes cache_valid_time=3600
       with_items:
-        - php5-common
-        - php5-mcrypt
-        - php5-intl
-        - php5-curl
-        - php5-dev
-        - php5-gd
-        - php5-memcached
-        - php5-mysql
-        - php5-gmp
-        - php5-json
+        - php7.0-common
+        - php7.0-mcrypt
+        - php7.0-intl
+        - php7.0-curl
+        - php7.0-dev
+        - php7.0-gd
+        - php7.0-memcached
+        - php7.0-mysql
+        - php7.0-gmp
+        - php7.0-json
         - phpunit
 
     - name: Enable mcrypt
       command: php5enmod mcrypt
 
-    - name: Restart php5-fpm
+    - name: Restart php7.0-fpm
       sudo: True
-      shell: service php5-fpm restart
+      shell: service php7.0-fpm restart
 
     - name: Install composer globally
       shell:  curl -sS https://getcomposer.org/installer | /usr/bin/php && sudo /bin/mv -f composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
 
     - name: Add source for NodeJS
-      shell: 'curl --silent --location https://deb.nodesource.com/setup_5.x | sudo bash -'
+      shell: 'curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -'
 
     - name: Install NodeJS
       apt: pkg=nodejs state=latest
