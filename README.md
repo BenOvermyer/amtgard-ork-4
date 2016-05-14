@@ -1,10 +1,12 @@
 # O.R.K. - Online Record Keeper
 
+This is version 3.5 of the ORK. It is a rewrite from the ground up, though it relies on the database schema from ORK 3 for its base structure.
+
 ## Laravel and Changes from ORK 3
 
 This version of the ORK is built on top of [Laravel 5](https://www.laravel.com).
 
-The SOAP-based web services are still present, but the way they use the underlying code has changed completely. The entire ecosystem - APIs and site - is now PSR-4 compliant.
+For now, extra things like the old code and APIs are still present. However, these are deprecated and will be removed in a future release.
 
 ## Setting up for development
 
@@ -14,7 +16,7 @@ This project uses [Vagrant](http://www.vagrantup.com) to build out a virtual dev
 vagrant up
 ```
 
-This will set up a web server running Ubuntu 14.04 with PHP 5.5, NodeJS 5.x, MySQL 5.6, git, and memcached installed. 
+This will set up a web server running Ubuntu 14.04 with PHP 7.0, NodeJS 6.x, MySQL 5.6, git, and memcached installed. 
 
 It will create a database for the project the first time that it's run and sets up an admin user. By default, this admin user has the email "changeme@example.com" so you'll want to modify it to be your own. To do that, edit the `vagrant.yml` file's `admin_email` var to be your email.
 
