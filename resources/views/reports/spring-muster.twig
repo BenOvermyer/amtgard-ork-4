@@ -1,0 +1,73 @@
+{% extends 'layout' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="small-12 columns">
+            <h1>{{ kingdom.name }} Spring Muster, {{ year }}</h1>
+
+            <h2>First Credit / Newbies</h2>
+
+            <p>This number of players (by park) received their first credit in March.</p>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Park</th>
+                    <th>Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for park in newbies %}
+                        <tr>
+                            <td>{{ park.park }}</td>
+                            <td>{{ park.count|number_format }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h2>Second Credits</h2>
+
+            <p>This number of players (by park) received their second recorded credit in March.</p>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Park</th>
+                    <th>Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for park in seconds %}
+                    <tr>
+                        <td>{{ park.park }}</td>
+                        <td>{{ park.count|number_format }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <h2>Average Weekly Attendance</h2>
+
+            <p>This is the weekly average attendance for each of the parks in {{ kingdom.name }}, as recorded for January and February.</p>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Park</th>
+                    <th>Average Attendance</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for park in averages %}
+                    <tr>
+                        <td>{{ park.park }}</td>
+                        <td>{{ park.attendance|number_format }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

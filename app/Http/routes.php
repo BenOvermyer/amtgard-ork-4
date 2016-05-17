@@ -25,6 +25,7 @@ Route::group( [ 'prefix' => 'unit' ], function () {
 
 Route::group( [ 'prefix' => 'reports' ], function () {
     Route::get( '/newbies-for-month/{year}/{month}', [ 'as' => 'reports.newbiesForMonth', 'uses' => 'ReportController@newbiesForMonth' ] );
+    Route::get( '/spring-muster/{kingdom}/{year}', [ 'as' => 'reports.springMuster', 'uses' => 'ReportController@springMuster' ] );
 } );
 
 /*
