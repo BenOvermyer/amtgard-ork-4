@@ -23,6 +23,10 @@ Route::group( [ 'prefix' => 'unit' ], function () {
     Route::get( '/{id}', [ 'as' => 'unit.show', 'uses' => 'UnitController@show' ] );
 } );
 
+Route::group( [ 'prefix' => 'reports' ], function () {
+    Route::get( '/newbies-for-month/{year}/{month}', [ 'as' => 'reports.newbiesForMonth', 'uses' => 'ReportController@newbiesForMonth' ] );
+} );
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes

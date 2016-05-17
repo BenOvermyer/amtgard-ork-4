@@ -1,0 +1,36 @@
+{% extends 'layout' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="small-12 columns">
+            <h1>Newbies for {{ month }}, {{ year }}</h1>
+            <p>
+                <strong>Total: </strong> {{ newbies|length|number_format }}
+            </p>
+            <p>
+                These are players that have no recorded credits prior to {{ month }} 1st, {{ year }}, and have at least one in the given month.
+            </p>
+            <table>
+                <thead>
+                <tr>
+                    <th>Persona</th>
+                    <th>Kingdom</th>
+                    <th>Park</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for newbie in newbies %}
+                    <tr>
+                        <td><a href="{{ route( 'player.show', { 'id': newbie.id } ) }}">{{ newbie.persona }}</a></td>
+                        <td>{{ newbie.kingdom }}</td>
+                        <td>{{ newbie.park }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}
