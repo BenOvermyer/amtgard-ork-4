@@ -108,6 +108,12 @@
                         {% endfor %}
                         </tbody>
                     </table>
+
+                    <h2>Reports</h2>
+
+                    <ul>
+                        <li><a href="{{ route( 'reports.springMuster', { 'kingdom': kingdom.kingdom_id, 'year': "now"|date( 'Y' ) }) }}">This Year's Spring Muster</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
