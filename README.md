@@ -6,8 +6,6 @@ This is version 3.5 of the ORK. It is a rewrite from the ground up, though it re
 
 This version of the ORK is built on top of [Laravel 5](https://www.laravel.com).
 
-For now, extra things like the old code and APIs are still present. However, these are deprecated and will be removed in a future release.
-
 ## Setting up for development
 
 This project uses [Vagrant](http://www.vagrantup.com) to build out a virtual development environment for you. Make sure you have it installed, and then just type the following command into your terminal from the project root:
