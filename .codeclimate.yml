@@ -26,3 +26,5 @@ exclude_paths:
 - orkui/
 - Ork/
 - system/
+- import/
+- otherapps/
