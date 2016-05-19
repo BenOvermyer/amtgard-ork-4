@@ -1,0 +1,22 @@
+machine:
+  php:
+    version: 7.0.4
+  timezone:
+    America/Chicago
+checkout:
+  post:
+    - cp .env.testing .env
+dependencies:
+  pre:
+    - sudo composer self-update
+    - npm install -g gulp
+    - npm install
+  override:
+    - composer install --no-interaction --optimize-autoloader --prefer-source
+    - php artisan migrate
+    - mysql -u ubuntu -D circle_test < ork.sql
+test:
+  override:
+    - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+    - if [ -z ${CODECLIMATE_REPO_TOKEN+x} ]; then echo "CODECLIMATE_REPO_TOKEN not set"; else ./vendor/bin/test-reporter || echo 'Nothing sent, failed'; fi
+
