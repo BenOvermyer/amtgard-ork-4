@@ -1,0 +1,44 @@
+{% extends 'layout' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="small-12 columns">
+            <h1>Register</h1>
+
+            <p>When you register, you will be able to see any personas that have your email address on your dashboard.</p>
+            <p>All fields are required.</p>
+
+            {{ form_open( { url: '/register' } ) }}
+
+            <label for="name">Your Real Name</label>
+            {{ form_text( 'name'  ) }}
+            {% if errors.has('name') %}
+                <div class="callout alert"><p>{{ errors.first('name') }}</p></div>
+            {% endif %}
+
+            <label for="email">Your Email</label>
+            {{ form_email( 'email', '', { required: 'required' } ) }}
+            {% if errors.has( 'email' ) %}
+                <div class="callout alert"><p>{{ errors.first( 'email' ) }}</p></div>
+            {% endif %}
+
+            <label for="password">Your Password</label>
+            {{ form_password( 'password', { required: 'required' } ) }}
+            {% if errors.has( 'password' ) %}
+                <div class="callout alert"><p>{{ errors.first( 'password' ) }}</p></div>
+            {% endif %}
+
+            <label for="password_confirmation">Confirm Your Password</label>
+            {{ form_password( 'password_confirmation', { required: 'required' } ) }}
+            {% if errors.has( 'password_confirmation' ) %}
+                <div class="callout alert"><p>{{ errors.first( 'password_confirmation' ) }}</p></div>
+            {% endif %}
+
+            {{ form_submit( 'Submit', { class: 'button', type: 'submit' } ) }}
+
+            {{ form_close() }}
+        </div>
+    </div>
+
+{% endblock %}

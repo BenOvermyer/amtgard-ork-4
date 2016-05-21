@@ -1,6 +1,9 @@
 <?php
 
+Route::auth();
+
 Route::get( '/', [ 'as' => 'home', 'uses' => 'HomeController@index' ] );
+Route::get( '/dashboard', [ 'as' => 'dashboard', 'uses' => 'HomeController@dashboard' ] );
 
 Route::group( [ 'prefix' => 'event' ], function () {
     Route::get( '/{id}', [ 'as' => 'event.show', 'uses' => 'EventController@show' ] );
@@ -28,17 +31,3 @@ Route::group( [ 'prefix' => 'reports' ], function () {
     Route::get( '/spring-muster/{kingdom}/{year}', [ 'as' => 'reports.springMuster', 'uses' => 'ReportController@springMuster' ] );
 } );
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
-
-Route::group( [ 'middleware' => [ 'web' ] ], function () {
-
-} );

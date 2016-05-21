@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>{{ pageTitle|raw }} | Amtgard ORK</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.1.2/foundation.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
@@ -11,8 +11,14 @@
         <div class="top-bar-left">
             <ul class="dropdown menu" data-dropdown-menu>
                 <li class="menu-text">Amtgard ORK</li>
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="#">Admin</a></li>
+                <li><a href="{{ route( 'home' ) }}">Home</a></li>
+                {% if currentUser %}
+                    <li><a href="{{ route( 'dashboard' ) }}">Dashboard</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                {% else %}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                {% endif %}
             </ul>
         </div>
         <div class="top-bar-right">
@@ -32,11 +38,12 @@
             <ul>
                 <li><p><span class="badge">s</span> Start a search</p></li>
                 <li><p><span class="badge">h</span> Go to the home page</p></li>
+                {% if currentUser %}<li><p><span class="badge">d</span> Go to your dashboard</p></li>{% endif %}
             </ul>
         </div>
     </footer>
     <script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="//cdn.jsdelivr.net/foundation/6.1.2/foundation.min.js"></script>
+    <script src="//cdn.jsdelivr.net/foundation/6.2.1/foundation.min.js"></script>
     <script src="{{ asset( 'js/all.js' ) }}"></script>
 </div>
 </body>

@@ -3,7 +3,7 @@ $( document ).ready( function () {
     var query = $( 'input.player-search' ).val();
 
     if ( query !== '' && query.length >= 3 ) {
-      location = '/player/search/' + query;
+      window.location.replace( '/player/search/' + query );
     } else {
       alert( 'Search query must have at least three characters!' );
     }
@@ -25,7 +25,10 @@ $( document ).ready( function () {
         return false;
       }
       else if ( e.keyCode === 72 ) {
-        location = '/';
+        window.location.replace( '/' );
+        return false;
+      } else if ( e.keyCode === 68 ) {
+        window.location.replace( '/dashboard' );
         return false;
       }
     }

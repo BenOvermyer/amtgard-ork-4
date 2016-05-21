@@ -1,0 +1,34 @@
+{% extends 'layout' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="small-12 columns">
+            <h1>Login</h1>
+            {{ form_open( { url: '/login' } ) }}
+
+            {% if errors|length > 0 %}
+                {% for error in errors.all() %}
+                    <div class="callout alert">
+                        <p>{{ error }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {{ form_label( 'email', 'Email' ) }}
+            {{ form_email( 'email', '', { required : 'required' } ) }}
+
+            {{ form_label( 'password', 'Password' ) }}
+            {{ form_password( 'password' , { required : 'required' } ) }}
+
+            {% if redirect %}
+                {{ form_hidden( 'redirect_to' , redirect ) }}
+            {% endif %}
+
+            {{ form_submit( 'Login', { class : 'button' } ) }}
+
+            {{ form_close() }}
+        </div>
+    </div>
+
+{% endblock %}

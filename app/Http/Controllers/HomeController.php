@@ -2,6 +2,7 @@
 
 use Cache;
 use DB;
+use App\Mundane;
 
 class HomeController extends Controller
 {
@@ -10,7 +11,7 @@ class HomeController extends Controller
         $minutes = config( 'cache.expiration' );
 
         $data = Cache::remember( 'kingdoms.summary.homepage', $minutes, function() {
-        $sql = <<<SQL
+            $sql = <<<SQL
 SELECT
 k.name,
 k.kingdom_id,
@@ -121,5 +122,16 @@ SQL;
         });
 
         return view( 'home.index' )->with( [ 'kingdoms' => $kingdoms, 'principalities' => $principalities, 'events' => $events, 'tournaments' => $tournaments, 'pageTitle' => 'Home' ] );
+    }
+
+    public function dashboard() {
+        $mundane = Mundane::where( 'email', $this->currentUser->email )->first();
+
+        return view( 'home.dashboard' )->with(
+            [
+                'mundane' => $mundane,
+                'pageTitle' => 'Dashboard',
+            ]
+        );
     }
 }

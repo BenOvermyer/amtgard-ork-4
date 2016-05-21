@@ -1,0 +1,21 @@
+{% extends 'layout' %}
+
+{% block content %}
+<div class="row">
+    <div class="small-12 columns">
+        <h1>Dashboard</h1>
+
+        <p>Hello, {% if mundane %}{{ mundane.persona }}{% else %}{{ currentUser.name }}{% endif %}!</p>
+
+        <h2>Links</h2>
+
+        <ul>
+            {% if mundane %}
+            <li><a href="{{ route( 'park.show', { id: mundane.park.park_id }) }}">{{ mundane.park.name }}</a> (<a href="{{ route( 'kingdom.show', { id: mundane.park.kingdom.kingdom_id } ) }}">{{ mundane.park.kingdom.name }}</a>)</li>
+            <li><a href="{{ route( 'player.show', { id: mundane.mundane_id }) }}">Your Player Page</a></li>
+            {% endif %}
+        </ul>
+
+    </div>
+</div>
+{% endblock %}
