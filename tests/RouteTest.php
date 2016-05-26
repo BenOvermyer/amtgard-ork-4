@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RouteTest extends TestCase
 {
@@ -13,7 +10,7 @@ class RouteTest extends TestCase
      */
     public function testHomeRoute()
     {
-        $this->visit( '/' )
-             ->see( 'Amtgard' );
+        $this->visit('/')
+             ->see('Amtgard');
     }
 }

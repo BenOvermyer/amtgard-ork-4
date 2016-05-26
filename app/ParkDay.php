@@ -11,6 +11,6 @@ class ParkDay extends Model
 
     public function park()
     {
-        return $this->belongsTo( 'App\Park' );
+        return $this->belongsTo('App\Park');
     }
 }

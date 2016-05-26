@@ -1,22 +1,24 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use Cache;
-use DateTime;
-use DateInterval;
-use DB;
+namespace App\Http\Controllers;
+
 use App\Kingdom;
+use Cache;
+use DateInterval;
+use DateTime;
+use DB;
 
-class ReportController extends Controller {
-
-    public function newbiesForMonth( $year, $month ) {
-
+class ReportController extends Controller
+{
+    public function newbiesForMonth($year, $month)
+    {
         $startDate = "$year-$month-01";
-        $date = new DateTime("$year-" . ( $month + 1 ) . "-01");
-        $date->sub( new DateInterval( 'P1D' ) );
-        $endDate = $date->format( 'Y-m-d' );
+        $date = new DateTime("$year-".($month + 1).'-01');
+        $date->sub(new DateInterval('P1D'));
+        $endDate = $date->format('Y-m-d');
 
-        $newbies = Cache::remember( 'report_newbies_' . $year . '_' . $month, 120, function () use ( $startDate, $endDate ) {
-            $sql = <<<SQL
+        $newbies = Cache::remember('report_newbies_'.$year.'_'.$month, 120, function () use ($startDate, $endDate) {
+            $sql = <<<'SQL'
 SELECT
 DISTINCT a.mundane_id AS 'id',
 c.persona,
@@ -54,26 +56,26 @@ p.name,
 c.persona
 SQL;
 
-            return DB::select( $sql, [ $startDate, $endDate, $startDate ] );
-        } );
+            return DB::select($sql, [$startDate, $endDate, $startDate]);
+        });
 
-        return view( 'reports.newbies-by-month', [
-            'newbies' => $newbies,
-            'month' => date_format( new DateTime( $startDate ), 'F' ),
-            'year' => $year,
+        return view('reports.newbies-by-month', [
+            'newbies'   => $newbies,
+            'month'     => date_format(new DateTime($startDate), 'F'),
+            'year'      => $year,
             'pageTitle' => "$year-$month Newbies",
-        ] );
+        ]);
     }
 
-    public function springMuster( $kingdomId, $year ) {
-
-        $kingdom = Kingdom::findOrFail( $kingdomId );
+    public function springMuster($kingdomId, $year)
+    {
+        $kingdom = Kingdom::findOrFail($kingdomId);
 
         $startDate = "$year-03-01";
         $endDate = "$year-03-31";
 
-        $newbieCountsByPark = Cache::remember( 'spring_muster_newbies_' . $kingdomId . '_' . $year, 120, function () use ( $startDate, $endDate, $kingdomId ) {
-            $sql = <<<SQL
+        $newbieCountsByPark = Cache::remember('spring_muster_newbies_'.$kingdomId.'_'.$year, 120, function () use ($startDate, $endDate, $kingdomId) {
+            $sql = <<<'SQL'
 SELECT
 p.name AS 'park',
 pc.count AS 'count'
@@ -120,11 +122,11 @@ ORDER BY
 park
 SQL;
 
-            return DB::select( $sql, [ $startDate, $endDate, $startDate, $kingdomId, $kingdomId ] );
+            return DB::select($sql, [$startDate, $endDate, $startDate, $kingdomId, $kingdomId]);
         });
 
-        $secondCreditsByPark = Cache::remember( 'spring_muster_second_credits_' . $kingdomId . '_' . $year, 120, function () use ( $startDate, $endDate, $kingdomId ) {
-            $sql = <<<SQL
+        $secondCreditsByPark = Cache::remember('spring_muster_second_credits_'.$kingdomId.'_'.$year, 120, function () use ($startDate, $endDate, $kingdomId) {
+            $sql = <<<'SQL'
 SELECT
 p.name AS 'park',
 pc.count AS 'count'
@@ -170,14 +172,15 @@ park
 ORDER BY
 park
 SQL;
-            return DB::select( $sql, [ $startDate, $endDate, $startDate, $kingdomId, $kingdomId ] );
+
+            return DB::select($sql, [$startDate, $endDate, $startDate, $kingdomId, $kingdomId]);
         });
 
-        $averageAttendanceByWeek = Cache::remember( 'spring_muster_average_' . $kingdomId . '_' . $year, 120, function () use ( $kingdomId, $year ) {
+        $averageAttendanceByWeek = Cache::remember('spring_muster_average_'.$kingdomId.'_'.$year, 120, function () use ($kingdomId, $year) {
             $januaryFirst = "$year-01-01";
-            $endOfFebruary = date_format( new DateTime( "$year-02-01" ), 'Y-m-t' );
+            $endOfFebruary = date_format(new DateTime("$year-02-01"), 'Y-m-t');
 
-            $sql = <<<SQL
+            $sql = <<<'SQL'
 SELECT
 p.name AS 'park',
 ( COUNT(*) / 8 ) AS 'attendance'
@@ -194,16 +197,16 @@ ORDER BY
 park
 SQL;
 
-            return DB::select( $sql, [ $kingdomId, $januaryFirst, $endOfFebruary ] );
+            return DB::select($sql, [$kingdomId, $januaryFirst, $endOfFebruary]);
         });
 
-        return view( 'reports.spring-muster', [
-            'kingdom' => $kingdom,
-            'newbies' => $newbieCountsByPark,
-            'seconds' => $secondCreditsByPark,
-            'averages' => $averageAttendanceByWeek,
-            'pageTitle' => $kingdom->name . ' Spring Muster, ' . $year,
-            'year' => $year,
-        ] );
+        return view('reports.spring-muster', [
+            'kingdom'   => $kingdom,
+            'newbies'   => $newbieCountsByPark,
+            'seconds'   => $secondCreditsByPark,
+            'averages'  => $averageAttendanceByWeek,
+            'pageTitle' => $kingdom->name.' Spring Muster, '.$year,
+            'year'      => $year,
+        ]);
     }
 }
