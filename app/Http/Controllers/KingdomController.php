@@ -1,20 +1,21 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\EventCalendarDetails;
+namespace App\Http\Controllers;
+
+use App\Kingdom;
 use Cache;
 use DB;
-use App\Kingdom;
 
 class KingdomController extends Controller
 {
-    public function show( $id )
+    public function show($id)
     {
-        $kingdom = Cache::remember( 'kingdom.' . $id . '.show', config( 'cache.kingdoms' ), function () use ( $id ) {
-            return Kingdom::findOrFail( $id );
-        } );
+        $kingdom = Cache::remember('kingdom.'.$id.'.show', config('cache.kingdoms'), function () use ($id) {
+            return Kingdom::findOrFail($id);
+        });
 
-        $events = Cache::remember( 'kingdom.' . $id . '.show.events', config( 'cache.kingdoms' ), function () use ( $id ) {
-            $sql = <<<SQL
+        $events = Cache::remember('kingdom.'.$id.'.show.events', config('cache.kingdoms'), function () use ($id) {
+            $sql = <<<'SQL'
 SELECT
 DISTINCT
 e.*,
@@ -43,11 +44,12 @@ kingdom_name,
 park_name,
 e.name
 SQL;
-            return DB::select( $sql, [ $id ] );
-        } );
 
-        $officers = Cache::remember( 'kingdom.' . $id . '.show.officers', config( 'cache.kingdoms' ), function () use ( $id ) {
-            $sql = <<<SQL
+            return DB::select($sql, [$id]);
+        });
+
+        $officers = Cache::remember('kingdom.'.$id.'.show.officers', config('cache.kingdoms'), function () use ($id) {
+            $sql = <<<'SQL'
 SELECT
 a.*,
 p.name AS park_name,
@@ -72,9 +74,10 @@ LEFT JOIN ork_unit u ON a.unit_id = u.unit_id
 WHERE o.kingdom_id = ?
 AND o.park_id = 0
 SQL;
-            return DB::select( $sql, [ $id ] );
-        } );
 
-        return view( 'kingdom.show' )->with( [ 'kingdom' => $kingdom, 'events' => $events, 'officers' => $officers, 'pageTitle' => $kingdom->name ] );
+            return DB::select($sql, [$id]);
+        });
+
+        return view('kingdom.show')->with(['kingdom' => $kingdom, 'events' => $events, 'officers' => $officers, 'pageTitle' => $kingdom->name]);
     }
 }

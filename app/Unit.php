@@ -11,11 +11,11 @@ class Unit extends Model
 
     public function members()
     {
-        return $this->belongsToMany( 'App\Mundane', 'ork_unit_mundane' )->orderBy( 'persona' );
+        return $this->belongsToMany('App\Mundane', 'ork_unit_mundane')->orderBy('persona');
     }
 
     public function unitMemberships()
     {
-        return $this->hasMany( 'App\UnitMembership', 'unit_id' );
+        return $this->hasMany('App\UnitMembership', 'unit_id');
     }
 }

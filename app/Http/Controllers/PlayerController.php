@@ -1,15 +1,17 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Mundane;
 use DB;
 
 class PlayerController extends Controller
 {
-    public function show( $id )
+    public function show($id)
     {
-        $player = Mundane::findOrFail( $id );
+        $player = Mundane::findOrFail($id);
 
-        $sql = <<<SQL
+        $sql = <<<'SQL'
 SELECT
 c.class_id,
 c.active,
@@ -43,9 +45,9 @@ LEFT JOIN ork_class_reconciliation cr ON cr.class_id = c.class_id AND cr.mundane
 WHERE c.active = 1
 GROUP BY c.class_id
 SQL;
-        $classes = DB::select( $sql, [ $id, $id, $id ] );
+        $classes = DB::select($sql, [$id, $id, $id]);
 
-        $sql = <<<SQL
+        $sql = <<<'SQL'
 SELECT
 a.*,
 c.name as class_name,
@@ -66,9 +68,9 @@ LEFT JOIN ork_kingdom ek on e.kingdom_id = ek.kingdom_id
 WHERE a.mundane_id = ?
 ORDER BY a.date DESC
 SQL;
-        $attendance = DB::select( $sql, [ $id ] );
+        $attendance = DB::select($sql, [$id]);
 
-        $sql = <<<SQL
+        $sql = <<<'SQL'
 SELECT DISTINCT
 awards.*,
 a.*,
@@ -94,9 +96,9 @@ awards.rank,
 awards.date
 SQL;
 
-        $awards = DB::select( $sql, [ $id ] );
+        $awards = DB::select($sql, [$id]);
 
-        $sql = <<<SQL
+        $sql = <<<'SQL'
 SELECT
 *
 FROM
@@ -104,9 +106,9 @@ ork_mundane_note
 WHERE
 mundane_id = ?
 SQL;
-        $notes = DB::select( $sql, [ $id ] );
+        $notes = DB::select($sql, [$id]);
 
-        $sql = <<<SQL
+        $sql = <<<'SQL'
 SELECT
 DISTINCT u.*,
 m.*,
@@ -122,9 +124,9 @@ GROUP BY u.unit_id
 ORDER BY u.name
 SQL;
 
-        $units = DB::select( $sql, [ $id ] );
+        $units = DB::select($sql, [$id]);
 
-        return view( 'player.show', [
+        return view('player.show', [
             'player'     => $player,
             'classes'    => $classes,
             'awards'     => $awards,
@@ -132,17 +134,17 @@ SQL;
             'notes'      => $notes,
             'units'      => $units,
             'pageTitle'  => $player->persona,
-        ] );
+        ]);
     }
 
-    public function search( $query )
+    public function search($query)
     {
-        if ( strlen( $query ) < 3 ) {
-            $players = [ ];
+        if (strlen($query) < 3) {
+            $players = [];
         } else {
-            $players = Mundane::where( 'persona', 'like', '%' . $query . '%' )->orderBy( 'persona' )->get();
+            $players = Mundane::where('persona', 'like', '%'.$query.'%')->orderBy('persona')->get();
         }
 
-        return view( 'player.search', [ 'players' => $players, 'query' => $query, 'pageTitle' => 'Search Results for "' . $query . '"' ] );
+        return view('player.search', ['players' => $players, 'query' => $query, 'pageTitle' => 'Search Results for "'.$query.'"']);
     }
 }

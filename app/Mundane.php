@@ -11,26 +11,26 @@ class Mundane extends Model
 
     public function kingdom()
     {
-        return $this->belongsTo( 'App\Kingdom' );
+        return $this->belongsTo('App\Kingdom');
     }
 
     public function park()
     {
-        return $this->belongsTo( 'App\Park' );
+        return $this->belongsTo('App\Park');
     }
 
     public function awards()
     {
-        return $this->hasMany( 'App\Award' )->orderBy( 'date', 'desc' );
+        return $this->hasMany('App\Award')->orderBy('date', 'desc');
     }
 
     public function units()
     {
-        return $this->belongsToMany( 'App\Unit', 'ork_unit_mundane' )->orderBy( 'name' );
+        return $this->belongsToMany('App\Unit', 'ork_unit_mundane')->orderBy('name');
     }
 
     public function unitMemberships()
     {
-        return $this->hasMany( 'App\UnitMembership', 'mundane_id' );
+        return $this->hasMany('App\UnitMembership', 'mundane_id');
     }
 }

@@ -1,17 +1,19 @@
-<?php namespace App\Http\Controllers;
+<?php
 
+namespace App\Http\Controllers;
+
+use App\Mundane;
 use Cache;
 use DB;
-use App\Mundane;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $minutes = config( 'cache.expiration' );
+        $minutes = config('cache.expiration');
 
-        $data = Cache::remember( 'kingdoms.summary.homepage', $minutes, function() {
-            $sql = <<<SQL
+        $data = Cache::remember('kingdoms.summary.homepage', $minutes, function () {
+            $sql = <<<'SQL'
 SELECT
 k.name,
 k.kingdom_id,
@@ -62,22 +64,23 @@ left join
 where active = 'Active'
 order by k.name
 SQL;
-            return DB::select( $sql );
+
+            return DB::select($sql);
         });
 
         $kingdoms = [];
         $principalities = [];
 
-        foreach ( $data as $item ) {
-            if ( $item->parent_kingdom_id != 0 ) {
+        foreach ($data as $item) {
+            if ($item->parent_kingdom_id != 0) {
                 $principalities[] = $item;
             } else {
                 $kingdoms[] = $item;
             }
         }
 
-        $events = Cache::remember( 'events.homepage', $minutes, function() {
-            $sql = <<<SQL
+        $events = Cache::remember('events.homepage', $minutes, function () {
+            $sql = <<<'SQL'
 SELECT
 ifnull(k.name,'') kingdom,
 k.kingdom_id,
@@ -95,11 +98,12 @@ WHERE
 event_start >= NOW()
 ORDER BY event_start ASC
 SQL;
-            return DB::select( $sql );
+
+            return DB::select($sql);
         });
 
-        $tournaments = Cache::remember( 'tournaments.homepage', $minutes, function() {
-            $sql = <<<SQL
+        $tournaments = Cache::remember('tournaments.homepage', $minutes, function () {
+            $sql = <<<'SQL'
 SELECT
 ifnull(k.name,'') kingdom,
 ifnull(p.name,'') park,
@@ -118,18 +122,20 @@ WHERE
 t.date_time >= NOW()
 ORDER BY t.date_time ASC
 SQL;
-            return DB::select( $sql );
+
+            return DB::select($sql);
         });
 
-        return view( 'home.index' )->with( [ 'kingdoms' => $kingdoms, 'principalities' => $principalities, 'events' => $events, 'tournaments' => $tournaments, 'pageTitle' => 'Home' ] );
+        return view('home.index')->with(['kingdoms' => $kingdoms, 'principalities' => $principalities, 'events' => $events, 'tournaments' => $tournaments, 'pageTitle' => 'Home']);
     }
 
-    public function dashboard() {
-        $mundane = Mundane::where( 'email', $this->currentUser->email )->first();
+    public function dashboard()
+    {
+        $mundane = Mundane::where('email', $this->currentUser->email)->first();
 
-        return view( 'home.dashboard' )->with(
+        return view('home.dashboard')->with(
             [
-                'mundane' => $mundane,
+                'mundane'   => $mundane,
                 'pageTitle' => 'Dashboard',
             ]
         );

@@ -11,11 +11,11 @@ class Tournament extends Model
 
     public function kingdom()
     {
-        return $this->belongsTo( 'App\Kingdom' );
+        return $this->belongsTo('App\Kingdom');
     }
 
     public function park()
     {
-        return $this->belongsTo( 'App\Park' );
+        return $this->belongsTo('App\Park');
     }
 }

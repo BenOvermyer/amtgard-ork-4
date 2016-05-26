@@ -11,11 +11,11 @@ class UnitMembership extends Model
 
     public function unit()
     {
-        return $this->belongsTo( 'App\Unit' );
+        return $this->belongsTo('App\Unit');
     }
 
     public function member()
     {
-        return $this->belongsTo( 'App\Mundane', 'mundane_id' );
+        return $this->belongsTo('App\Mundane', 'mundane_id');
     }
 }

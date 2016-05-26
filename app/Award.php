@@ -11,47 +11,47 @@ class Award extends Model
 
     public function details()
     {
-        if ( $this->award_id == 0 ) {
+        if ($this->award_id == 0) {
             $column = 'kingdomaward_id';
         } else {
             $column = 'award_id';
         }
 
-        return $this->belongsTo( 'App\AwardDetails', $column );
+        return $this->belongsTo('App\AwardDetails', $column);
     }
 
     public function player()
     {
-        return $this->hasOne( 'App\Mundane' );
+        return $this->hasOne('App\Mundane');
     }
 
     public function park()
     {
-        return $this->hasOne( 'App\Park' );
+        return $this->hasOne('App\Park');
     }
 
     public function kingdom()
     {
-        return $this->hasOne( 'App\Kingdom' );
+        return $this->hasOne('App\Kingdom');
     }
 
     public function atEvent()
     {
-        return $this->belongsTo( 'App\Event', 'at_event_id' );
+        return $this->belongsTo('App\Event', 'at_event_id');
     }
 
     public function atPark()
     {
-        return $this->belongsTo( 'App\Park', 'at_park_id' );
+        return $this->belongsTo('App\Park', 'at_park_id');
     }
 
     public function atKingdom()
     {
-        return $this->belongsTo( 'App\Kingdom', 'at_kingdom_id' );
+        return $this->belongsTo('App\Kingdom', 'at_kingdom_id');
     }
 
     public function givenBy()
     {
-        return $this->belongsTo( 'App\Mundane', 'given_by_id' );
+        return $this->belongsTo('App\Mundane', 'given_by_id');
     }
 }

@@ -11,16 +11,16 @@ class Event extends Model
 
     public function kingdom()
     {
-        return $this->belongsTo( 'App\Kingdom' );
+        return $this->belongsTo('App\Kingdom');
     }
 
     public function park()
     {
-        return $this->belongsTo( 'App\Park' );
+        return $this->belongsTo('App\Park');
     }
 
     public function details()
     {
-        return $this->hasMany( 'App\EventCalendarDetails' );
+        return $this->hasMany('App\EventCalendarDetails');
     }
 }

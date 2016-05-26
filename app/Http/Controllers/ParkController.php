@@ -1,19 +1,21 @@
-<?php namespace App\Http\Controllers;
+<?php
 
+namespace App\Http\Controllers;
+
+use App\Park;
 use Cache;
 use DB;
-use App\Park;
 
 class ParkController extends Controller
 {
-    public function show( $id )
+    public function show($id)
     {
-        $park = Cache::remember( 'park.' . $id . '.show', config( 'cache.expiration' ), function () use ( $id ) {
-            return Park::findOrFail( $id );
-        } );
+        $park = Cache::remember('park.'.$id.'.show', config('cache.expiration'), function () use ($id) {
+            return Park::findOrFail($id);
+        });
 
-        $events = Cache::remember( 'park.' . $id . '.show.events', config( 'cache.expiration' ), function () use ( $id ) {
-            $sql = <<<SQL
+        $events = Cache::remember('park.'.$id.'.show.events', config('cache.expiration'), function () use ($id) {
+            $sql = <<<'SQL'
 SELECT
 DISTINCT
 e.*,
@@ -41,9 +43,10 @@ kingdom_name,
 park_name,
 e.name
 SQL;
-            return DB::select( $sql, [ $id ] );
+
+            return DB::select($sql, [$id]);
         });
 
-        return view( 'park.show' )->with( [ 'park' => $park, 'events' => $events, 'pageTitle' => $park->name ] );
+        return view('park.show')->with(['park' => $park, 'events' => $events, 'pageTitle' => $park->name]);
     }
 }

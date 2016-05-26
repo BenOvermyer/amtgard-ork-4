@@ -11,6 +11,6 @@ class AwardDetails extends Model
 
     public function awards()
     {
-        return $this->hasMany( 'App\Award' );
+        return $this->hasMany('App\Award');
     }
 }
