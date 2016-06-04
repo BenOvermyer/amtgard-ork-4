@@ -7,6 +7,16 @@
 
         <p>Hello, {% if mundane %}{{ mundane.persona }}{% else %}{{ currentUser.name }}{% endif %}!</p>
 
+        {% if units|length > 0 %}
+        <h2>Households and Companies</h2>
+
+        <ul>
+            {% for unit in units %}
+                <li><a href="{{ route('unit.show', { id: unit.unit_id } ) }}">{{ unit.name }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
         <h2>Links</h2>
 
         <ul>

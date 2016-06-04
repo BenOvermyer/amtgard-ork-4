@@ -131,11 +131,38 @@ SQL;
 
     public function dashboard()
     {
-        $mundane = Mundane::where('email', $this->currentUser->email)->first();
+        $userEmail = $this->currentUser->email;
+
+        $mundane = Mundane::where('email', $userEmail)->first();
+
+        $units = Cache::remember( 'dashboard.' . $userEmail . '.show', config( 'cache.expiration' ), function () use ( $userEmail ) {
+            $sql = <<<'SQL'
+SELECT
+DISTINCT u.*,
+m.*,
+COUNT(um.mundane_id) AS member_count
+FROM ork_unit u
+LEFT JOIN ork_unit_mundane um ON u.unit_id = um.unit_id
+LEFT JOIN ork_mundane m ON m.mundane_id = um.mundane_id
+LEFT JOIN ork_event e ON e.unit_id = u.unit_id
+WHERE
+um.mundane_id IN (
+  SELECT mundane_id
+  FROM ork_mundane
+  WHERE
+  email = ?
+)
+AND um.active = 1
+GROUP BY u.unit_id
+ORDER BY u.name
+SQL;
+            return DB::select( $sql, [ $userEmail ] );
+        });
 
         return view('home.dashboard')->with(
             [
                 'mundane'   => $mundane,
+                'units'     => $units,
                 'pageTitle' => 'Dashboard',
             ]
         );
