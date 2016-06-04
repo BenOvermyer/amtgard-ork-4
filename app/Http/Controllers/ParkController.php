@@ -8,13 +8,13 @@ use DB;
 
 class ParkController extends Controller
 {
-    public function show($id)
+    public function show( $id )
     {
-        $park = Cache::remember('park.'.$id.'.show', config('cache.expiration'), function () use ($id) {
-            return Park::findOrFail($id);
-        });
+        $park = Cache::remember( 'park.' . $id . '.show', config( 'cache.expiration' ), function () use ( $id ) {
+            return Park::findOrFail( $id );
+        } );
 
-        $events = Cache::remember('park.'.$id.'.show.events', config('cache.expiration'), function () use ($id) {
+        $events = Cache::remember( 'park.' . $id . '.show.events', config( 'cache.expiration' ), function () use ( $id ) {
             $sql = <<<'SQL'
 SELECT
 DISTINCT
@@ -44,9 +44,29 @@ park_name,
 e.name
 SQL;
 
-            return DB::select($sql, [$id]);
-        });
+            return DB::select( $sql, [ $id ] );
+        } );
 
-        return view('park.show')->with(['park' => $park, 'events' => $events, 'pageTitle' => $park->name]);
+        $officers = Cache::remember( 'park.' . $id . '.show.officers', config( 'cache.expiration' ), function () use ( $id ) {
+            $sql = <<<'SQL'
+SELECT
+m.mundane_id,
+m.persona,
+o.role
+FROM
+ork_officer o
+INNER JOIN ork_mundane m ON o.mundane_id = m.mundane_id
+WHERE
+o.park_id = ?
+SQL;
+            return DB::select( $sql, [ $id ] );
+        } );
+
+        return view( 'park.show' )->with( [
+            'park' => $park,
+            'events' => $events,
+            'officers' => $officers,
+            'pageTitle' => $park->name
+        ] );
     }
 }

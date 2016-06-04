@@ -63,6 +63,23 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <h2>Officers</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for officer in officers %}
+                    <tr>
+                        <td><a href="{{ route('player.show', {id: officer.mundane_id}) }}">{{ officer.persona }}</a></td>
+                        <td>{{ officer.role }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="row">
